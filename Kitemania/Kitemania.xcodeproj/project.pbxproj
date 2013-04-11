@@ -286,13 +286,14 @@
 		AB266B1C17169446007930EB /* Tw56.fnt in Resources */ = {isa = PBXBuildFile; fileRef = AB266AFB17169446007930EB /* Tw56.fnt */; };
 		AB266B1D17169446007930EB /* Tw70_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AFC17169446007930EB /* Tw70_0.png */; };
 		AB266B1E17169446007930EB /* Tw70.fnt in Resources */ = {isa = PBXBuildFile; fileRef = AB266AFD17169446007930EB /* Tw70.fnt */; };
-		AB266B2717169455007930EB /* Balloon.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2017169455007930EB /* Balloon.caf */; };
-		AB266B2817169455007930EB /* BG.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2117169455007930EB /* BG.caf */; };
-		AB266B2917169455007930EB /* CORRECTWORD.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2217169455007930EB /* CORRECTWORD.caf */; };
-		AB266B2A17169455007930EB /* FLICK.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2317169455007930EB /* FLICK.caf */; };
-		AB266B2B17169455007930EB /* HIT.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2417169455007930EB /* HIT.caf */; };
-		AB266B2C17169455007930EB /* LETTERPICK.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2517169455007930EB /* LETTERPICK.caf */; };
-		AB266B2D17169455007930EB /* zap.caf in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2617169455007930EB /* zap.caf */; };
+		AB266B3517169AC8007930EB /* Balloon.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2E17169AC8007930EB /* Balloon.m4a */; };
+		AB266B3617169AC8007930EB /* BG.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B2F17169AC8007930EB /* BG.m4a */; };
+		AB266B3717169AC8007930EB /* CORRECTWORD.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3017169AC8007930EB /* CORRECTWORD.m4a */; };
+		AB266B3817169AC8007930EB /* FLICK.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3117169AC8007930EB /* FLICK.m4a */; };
+		AB266B3917169AC8007930EB /* HIT.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3217169AC8007930EB /* HIT.m4a */; };
+		AB266B3A17169AC8007930EB /* LETTERPICK.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3317169AC8007930EB /* LETTERPICK.m4a */; };
+		AB266B3B17169AC8007930EB /* zap.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3417169AC8007930EB /* zap.m4a */; };
+		AB266B3E17169B13007930EB /* Music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266B3C17169B13007930EB /* Music.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -835,13 +836,15 @@
 		AB266AFB17169446007930EB /* Tw56.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Tw56.fnt; path = Fonts/Tw56.fnt; sourceTree = "<group>"; };
 		AB266AFC17169446007930EB /* Tw70_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tw70_0.png; path = Fonts/Tw70_0.png; sourceTree = "<group>"; };
 		AB266AFD17169446007930EB /* Tw70.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Tw70.fnt; path = Fonts/Tw70.fnt; sourceTree = "<group>"; };
-		AB266B2017169455007930EB /* Balloon.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Balloon.caf; path = Sounds/Balloon.caf; sourceTree = "<group>"; };
-		AB266B2117169455007930EB /* BG.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BG.caf; path = Sounds/BG.caf; sourceTree = "<group>"; };
-		AB266B2217169455007930EB /* CORRECTWORD.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = CORRECTWORD.caf; path = Sounds/CORRECTWORD.caf; sourceTree = "<group>"; };
-		AB266B2317169455007930EB /* FLICK.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FLICK.caf; path = Sounds/FLICK.caf; sourceTree = "<group>"; };
-		AB266B2417169455007930EB /* HIT.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = HIT.caf; path = Sounds/HIT.caf; sourceTree = "<group>"; };
-		AB266B2517169455007930EB /* LETTERPICK.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = LETTERPICK.caf; path = Sounds/LETTERPICK.caf; sourceTree = "<group>"; };
-		AB266B2617169455007930EB /* zap.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = zap.caf; path = Sounds/zap.caf; sourceTree = "<group>"; };
+		AB266B2E17169AC8007930EB /* Balloon.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Balloon.m4a; path = Sounds/Balloon.m4a; sourceTree = "<group>"; };
+		AB266B2F17169AC8007930EB /* BG.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = BG.m4a; path = Sounds/BG.m4a; sourceTree = "<group>"; };
+		AB266B3017169AC8007930EB /* CORRECTWORD.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = CORRECTWORD.m4a; path = Sounds/CORRECTWORD.m4a; sourceTree = "<group>"; };
+		AB266B3117169AC8007930EB /* FLICK.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = FLICK.m4a; path = Sounds/FLICK.m4a; sourceTree = "<group>"; };
+		AB266B3217169AC8007930EB /* HIT.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = HIT.m4a; path = Sounds/HIT.m4a; sourceTree = "<group>"; };
+		AB266B3317169AC8007930EB /* LETTERPICK.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = LETTERPICK.m4a; path = Sounds/LETTERPICK.m4a; sourceTree = "<group>"; };
+		AB266B3417169AC8007930EB /* zap.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = zap.m4a; path = Sounds/zap.m4a; sourceTree = "<group>"; };
+		AB266B3C17169B13007930EB /* Music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Music.cpp; path = Classes/Music.cpp; sourceTree = "<group>"; };
+		AB266B3D17169B13007930EB /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Music.h; path = Classes/Music.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1877,11 +1880,13 @@
 			children = (
 				AB266A95171693A8007930EB /* GlobalClass.cpp */,
 				AB266A96171693A8007930EB /* GlobalClass.h */,
+				AB266B3C17169B13007930EB /* Music.cpp */,
+				AB266B3D17169B13007930EB /* Music.h */,
 				AB266A93171693A8007930EB /* GameSettings.cpp */,
 				AB266A94171693A8007930EB /* GameSettings.h */,
-				AB266A99171693A8007930EB /* Resources.h */,
 				AB266A9A171693A8007930EB /* TranslateScreen.cpp */,
 				AB266A9B171693A8007930EB /* TranslateScreen.h */,
+				AB266A99171693A8007930EB /* Resources.h */,
 				AB266A801716926D007930EB /* AppDelegate.cpp */,
 				AB266A7F1716926D007930EB /* AppDelegate.h */,
 			);
@@ -1974,13 +1979,13 @@
 		AB266B1F1716944B007930EB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				AB266B2017169455007930EB /* Balloon.caf */,
-				AB266B2117169455007930EB /* BG.caf */,
-				AB266B2217169455007930EB /* CORRECTWORD.caf */,
-				AB266B2317169455007930EB /* FLICK.caf */,
-				AB266B2417169455007930EB /* HIT.caf */,
-				AB266B2517169455007930EB /* LETTERPICK.caf */,
-				AB266B2617169455007930EB /* zap.caf */,
+				AB266B2E17169AC8007930EB /* Balloon.m4a */,
+				AB266B2F17169AC8007930EB /* BG.m4a */,
+				AB266B3017169AC8007930EB /* CORRECTWORD.m4a */,
+				AB266B3117169AC8007930EB /* FLICK.m4a */,
+				AB266B3217169AC8007930EB /* HIT.m4a */,
+				AB266B3317169AC8007930EB /* LETTERPICK.m4a */,
+				AB266B3417169AC8007930EB /* zap.m4a */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -2111,13 +2116,13 @@
 				AB266B1C17169446007930EB /* Tw56.fnt in Resources */,
 				AB266B1D17169446007930EB /* Tw70_0.png in Resources */,
 				AB266B1E17169446007930EB /* Tw70.fnt in Resources */,
-				AB266B2717169455007930EB /* Balloon.caf in Resources */,
-				AB266B2817169455007930EB /* BG.caf in Resources */,
-				AB266B2917169455007930EB /* CORRECTWORD.caf in Resources */,
-				AB266B2A17169455007930EB /* FLICK.caf in Resources */,
-				AB266B2B17169455007930EB /* HIT.caf in Resources */,
-				AB266B2C17169455007930EB /* LETTERPICK.caf in Resources */,
-				AB266B2D17169455007930EB /* zap.caf in Resources */,
+				AB266B3517169AC8007930EB /* Balloon.m4a in Resources */,
+				AB266B3617169AC8007930EB /* BG.m4a in Resources */,
+				AB266B3717169AC8007930EB /* CORRECTWORD.m4a in Resources */,
+				AB266B3817169AC8007930EB /* FLICK.m4a in Resources */,
+				AB266B3917169AC8007930EB /* HIT.m4a in Resources */,
+				AB266B3A17169AC8007930EB /* LETTERPICK.m4a in Resources */,
+				AB266B3B17169AC8007930EB /* zap.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2321,6 +2326,7 @@
 				AB266A9D171693A8007930EB /* GlobalClass.cpp in Sources */,
 				AB266A9E171693A8007930EB /* LoadingScreen.cpp in Sources */,
 				AB266A9F171693A8007930EB /* TranslateScreen.cpp in Sources */,
+				AB266B3E17169B13007930EB /* Music.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2454,6 +2460,7 @@
 				AB266A891716926D007930EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -12,6 +12,7 @@
 #include "TranslateScreen.h"
 #include "GameSettings.h"
 #include "HelpScreen.h"
+#include "Music.h"
 
 enum
 {
@@ -78,13 +79,13 @@ bool MainMenuScene::init()
 void MainMenuScene::onEnter()
 {
 	CCLayer::onEnter();
-//	pLangId = GameSettings::getInstance()->getLanguageType();
 }
 
 void MainMenuScene::onExit()
-{	
-//	removeAllChildrenWithCleanup(true);
+{
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_MENU);
+
+	removeAllChildrenWithCleanup(true);
     CCLayer::onExit();
 }
 
@@ -107,19 +108,19 @@ void MainMenuScene::initScene(CCObject *pSender)
     KMLogo->setScale(0.1f);
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(KITEMANIA_LOGO);
 
+	//----Add zoom animation with kite-mania logo
+	KMLogo->runAction(CCScaleTo::create(0.5, 1.0));
+
 //	if (CC_GLVIEW::sharedOpenGLView().isIpad()) {
 //		KMLogo->setPosition( ccp(bgImage->getContentSize().width*0.5f, bgImage->getContentSize().height*0.85f));
 //	}
-//	
-	//----Add zoom animation with kite-mania logo
-	KMLogo->runAction(CCScaleTo::create(0.5, 1.0));
 	
 	addGameMenuMethod();
 	
-//    if(GameSettings::getInstance()->getMusic()==0)
-//    {
-//		Music::getInstance()->playBackgroundSound();
-//    }
+    if(GameSettings::sharedSetting()->getMusic() == 0)
+    {
+		Music::sharedMusic()->playBackgroundSound();
+    }
 }
 
 void MainMenuScene::addGameMenuMethod()
@@ -364,20 +365,17 @@ void MainMenuScene::modeMenuMethod(cocos2d::CCObject* sender)
 void MainMenuScene::soundMenuMethod(cocos2d::CCObject* sender)
 {
     GameSettings* settings = GameSettings::sharedSetting();
-//	Music* gameMusic = Music::getInstance();	
 	
-	if (settings->getMusic() == 0) {
+	if (settings->getMusic() == 0)
+	{
 		settings->setMusic(1);
 		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_OFF));
-//		gameMusic->muteGameSound();
+		Music::sharedMusic()->muteGameSound();
 	}
 	else {
 		settings->setMusic(0);
 		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_ON));
-//		gameMusic->resumeGameSound();
-//    
-//		if(gameMusic->isBackgroundMusicRunning()==false)
-//			gameMusic->playBackgroundSound();   
+		Music::sharedMusic()->resumeGameSound();
 	}
 }
 
@@ -389,9 +387,9 @@ void MainMenuScene::helpMenuMethod(cocos2d::CCObject *sender)
 
 void MainMenuScene::exitMenuMethod(cocos2d::CCObject *sender)
 {	
-//	Music* gameMusic = Music::getInstance();	
-//	CC_SAFE_DELETE(gameMusic);
-//	
+	Music* gameMusic = Music::sharedMusic();
+	CC_SAFE_DELETE(gameMusic);
+
     CCDirector::sharedDirector()->end();
 	CCTextureCache::sharedTextureCache()->removeAllTextures();
 	exit(0); 
