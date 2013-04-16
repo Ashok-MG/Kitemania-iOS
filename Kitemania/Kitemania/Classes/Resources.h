@@ -6,6 +6,28 @@
 #ifndef KiteMania_Resources_h
 #define KiteMania_Resources_h
 
+enum
+{
+	kTagClassic = 10,
+	kTagEndless,
+	kTagTimer,
+};
+
+enum
+{
+	kTagEnglish = 20,
+	kTagSpanish,
+	kTagPortuguese,
+	kTagFrench,
+	kTagGerman,
+};
+
+enum
+{
+	kTagSoundOn = 30,
+	kTagSoundOff,
+};
+
 //FONTS
 #define FONT_ARIAL16 					"arial16.fnt"
 #define FONT_ARIAL 						"Arial.ttf"
@@ -20,7 +42,11 @@
 #define BACK_UP							"back_up.png"
 #define BACK_DOWN						"back_down.png"
 #define SUBMIT_UP						"submit_up.png"
-#define SUBMIT_DOWN						"submit_down.png"
+#define SUBMIT_DOWN						"submit_over.png"
+#define SUBMIT_WRONG					"submit_red.png"
+#define SUBMIT_RIGHT					"submit_green.png"
+#define BTN_ON_UP						"button_up.png"
+#define BTN_ON_DOWN						"button_down.png"
 
 //MENU ASSETS
 #define MENU_PLAY_UP					"play_up.png"
@@ -35,13 +61,28 @@
 #define MENU_HELP_DOWN					"help_down.png"
 #define MENU_EXIT_UP					"exit_up.png"
 #define MENU_EXIT_DOWN					"exit_down.png"
+#define MENU_MENU_UP					"menu_up.png"
+#define MENU_MENU_DOWN					"menu_down.png"
 
-
+//GAME ASSETS
 #define PLAY_BG_IMAGE                   "play_bg.png"
 #define BALL_IMAGE						"ball.png"
 #define KITE_WALL						"kite_wall.png"
 #define RED_KITE						"kRed.png"
+#define GAME_KITE						"kLive.png"
 #define HOT_BALLON						"Hot_Air_Balloon.png"
+#define SCROE_PANEL						"scorepanel.png"
+#define SCORE_HEAD_BAR					"blue_bar.png"
+#define SCORE_DATA_BAR					"leaderboard_bar.png"
+
+//SOUNDS
+#define SFX_BIRD_HIT					"HIT.m4a"
+#define SFX_SUBMIT_CORRECT				"CORRECTWORD.m4a"
+#define SFX_WORK_FLICK					"FLICK.m4a"
+#define SFX_WORD_PICK					"LETTERPICK.m4a"
+#define SFX_AIRHOT_HIT					"Balloon.m4a"
+#define SFX_LIGHT_HIT					"zap.m4a"
+#define SFX_GAME_BG						"BG.m4a"
 
 //KM RESOURCE PLIST
 #define IMAGE_PLIST_MENU                "Menu_Ass.plist"

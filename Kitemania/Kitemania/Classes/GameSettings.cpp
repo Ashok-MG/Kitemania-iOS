@@ -83,7 +83,7 @@ void GameSettings::setScore(int score) {
     saveData(); 
 }
 
-void GameSettings::setLangugaeType(int lang) {
+void GameSettings::setLanguageType(int lang) {
     CCUserDefault::sharedUserDefault()->setIntegerForKey("langType", lang);
     saveData(); 
 }

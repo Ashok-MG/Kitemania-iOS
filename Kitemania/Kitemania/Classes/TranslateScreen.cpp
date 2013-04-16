@@ -8,6 +8,7 @@
 
 #include "TranslateScreen.h"
 #include "GameSettings.h"
+#include "Resources.h"
 
 //IMPORTANT KEEP THE SIZE OF ALL ARRAYS SAME
 
@@ -107,17 +108,13 @@ const char* TranslateScreen::localeString(TextToShow textToShow)
 {
 	switch (GameSettings::sharedSetting()->getLanguageType())
     {
-        case 0: return LANG_ENGLISH_ARRAY[textToShow];
-		break;
-		case 1: return LANG_SPANISH_ARRAY[textToShow];
-		break;
-		case 2:	return LANG_PORTE_ARRAY[textToShow];
-		break;
-        case 3: return LANG_FRENCH_ARRAY[textToShow];
-		break;
-        case 4: return LANG_GERMAN_ARRAY[textToShow];
-		break;
-        default:return LANG_ENGLISH_ARRAY[textToShow];
-		break;
+        case kTagEnglish:		return LANG_ENGLISH_ARRAY[textToShow];
+		case kTagSpanish:		return LANG_SPANISH_ARRAY[textToShow];
+		case kTagPortuguese:	return LANG_PORTE_ARRAY[textToShow];
+        case kTagFrench:		return LANG_FRENCH_ARRAY[textToShow];
+        case kTagGerman:		return LANG_GERMAN_ARRAY[textToShow];
+		default:				return LANG_ENGLISH_ARRAY[textToShow];
+
     }
+	return "";
 }

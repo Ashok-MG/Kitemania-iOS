@@ -55,7 +55,7 @@ class GameSettings
 		int getMinMaxScoreEndless(int gVal);
 		int getMinMaxScoreTimer(int gVal);
 		
-		void setLangugaeType(int lang);
+		void setLanguageType(int lang);
 		void setUserName(char name[]);
 		
 		void addUser(const char *name, int score);

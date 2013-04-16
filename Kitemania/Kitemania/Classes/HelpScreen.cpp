@@ -49,7 +49,14 @@ CCScene* HelpScreen::scene()
 
 HelpScreen::HelpScreen() {}
 
-HelpScreen::~HelpScreen() {}
+HelpScreen::~HelpScreen()
+{
+	unscheduleAllSelectors();
+	removeAllChildrenWithCleanup(true);
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_GAME);
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_CIRCEL);
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_LIGHT);
+}
 
 // on "init" you need to initialize your instance
 bool HelpScreen::init()
@@ -61,32 +68,28 @@ bool HelpScreen::init()
         return false;
 	}
 	
-	this->setKeypadEnabled(true);
-	return true;
-}
-
-void HelpScreen::onEnter()
-{
-    CCLayer::onEnter();
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_GAME, IMAGE_PNG_GAME);
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(IMAGE_PNG_GAME);
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_CIRCEL, IMAGE_PNG_CIRCEL);
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(IMAGE_PNG_CIRCEL);
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_LIGHT, IMAGE_PNG_LIGHT);
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(IMAGE_PNG_LIGHT);
-
+	
+	this->setKeypadEnabled(true);
+	
 	screenSize = CCDirector::sharedDirector()->getWinSize();
-
 	initScene(NULL);
+
+	return true;
+}
+
+void HelpScreen::onEnter()
+{
+    CCLayer::onEnter();
 }
 
 void HelpScreen::onExit()
 {		
-	unscheduleAllSelectors();
-	removeAllChildrenWithCleanup(true);
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_GAME);
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_CIRCEL);
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_LIGHT);
     CCLayer::onExit();
 }
 
@@ -463,7 +466,7 @@ void HelpScreen::addMoveBirds()
     
     bird->setPosition(ccp(xPosition,yPosition));
 	
-    CCRepeatForever *birdAction=CCRepeatForever::create(CCAnimate::create(birdAnimation));
+    CCRepeatForever *birdAction = CCRepeatForever::create(CCAnimate::create(birdAnimation));
     bird->runAction(birdAction);
 	
     bird->runAction(CCSequence::create( CCMoveTo::create(moveDuration,ccp(offScreenXPosition, bird->getPosition().y)),

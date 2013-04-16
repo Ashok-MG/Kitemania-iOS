@@ -15,8 +15,6 @@
 		AB2667AB17169260007930EB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2667AA17169260007930EB /* UIKit.framework */; };
 		AB2667AD17169260007930EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2667AC17169260007930EB /* Foundation.framework */; };
 		AB2667AF17169260007930EB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2667AE17169260007930EB /* CoreGraphics.framework */; };
-		AB2667B317169261007930EB /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2667B217169261007930EB /* CloseNormal.png */; };
-		AB2667B517169261007930EB /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2667B417169261007930EB /* CloseSelected.png */; };
 		AB2667B717169261007930EB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2667B617169261007930EB /* Default.png */; };
 		AB2667BB17169261007930EB /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2667BA17169261007930EB /* Icon-72.png */; };
 		AB2667BD17169261007930EB /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = AB2667BC17169261007930EB /* Icon-Small-50.png */; };
@@ -294,6 +292,9 @@
 		AB266B3A17169AC8007930EB /* LETTERPICK.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3317169AC8007930EB /* LETTERPICK.m4a */; };
 		AB266B3B17169AC8007930EB /* zap.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AB266B3417169AC8007930EB /* zap.m4a */; };
 		AB266B3E17169B13007930EB /* Music.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266B3C17169B13007930EB /* Music.cpp */; };
+		AB266B411716D19A007930EB /* PlayScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266B3F1716D19A007930EB /* PlayScreen.cpp */; };
+		AB4640EA1717E28F009DE6CD /* InputUserName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB4640E81717E28F009DE6CD /* InputUserName.cpp */; };
+		AB4640ED1717EB77009DE6CD /* GameOverScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB4640EB1717EB76009DE6CD /* GameOverScreen.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -306,8 +307,6 @@
 		AB2667AA17169260007930EB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AB2667AC17169260007930EB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB2667AE17169260007930EB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		AB2667B217169261007930EB /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseNormal.png; path = Resources/CloseNormal.png; sourceTree = "<group>"; };
-		AB2667B417169261007930EB /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CloseSelected.png; path = Resources/CloseSelected.png; sourceTree = "<group>"; };
 		AB2667B617169261007930EB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		AB2667BA17169261007930EB /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
 		AB2667BC17169261007930EB /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -845,6 +844,12 @@
 		AB266B3417169AC8007930EB /* zap.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = zap.m4a; path = Sounds/zap.m4a; sourceTree = "<group>"; };
 		AB266B3C17169B13007930EB /* Music.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Music.cpp; path = Classes/Music.cpp; sourceTree = "<group>"; };
 		AB266B3D17169B13007930EB /* Music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Music.h; path = Classes/Music.h; sourceTree = "<group>"; };
+		AB266B3F1716D19A007930EB /* PlayScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlayScreen.cpp; path = Classes/PlayScreen.cpp; sourceTree = "<group>"; };
+		AB266B401716D19A007930EB /* PlayScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayScreen.h; path = Classes/PlayScreen.h; sourceTree = "<group>"; };
+		AB4640E81717E28F009DE6CD /* InputUserName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputUserName.cpp; path = Classes/InputUserName.cpp; sourceTree = "<group>"; };
+		AB4640E91717E28F009DE6CD /* InputUserName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputUserName.h; path = Classes/InputUserName.h; sourceTree = "<group>"; };
+		AB4640EB1717EB76009DE6CD /* GameOverScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameOverScreen.cpp; path = Classes/GameOverScreen.cpp; sourceTree = "<group>"; };
+		AB4640EC1717EB76009DE6CD /* GameOverScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverScreen.h; path = Classes/GameOverScreen.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -919,8 +924,6 @@
 		AB2667B117169261007930EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AB2667B217169261007930EB /* CloseNormal.png */,
-				AB2667B417169261007930EB /* CloseSelected.png */,
 				AB2667B617169261007930EB /* Default.png */,
 				AB2667BA17169261007930EB /* Icon-72.png */,
 				AB2667BC17169261007930EB /* Icon-Small-50.png */,
@@ -1858,6 +1861,12 @@
 		AB266A8A1716935F007930EB /* GamePlay */ = {
 			isa = PBXGroup;
 			children = (
+				AB266B3F1716D19A007930EB /* PlayScreen.cpp */,
+				AB266B401716D19A007930EB /* PlayScreen.h */,
+				AB4640E81717E28F009DE6CD /* InputUserName.cpp */,
+				AB4640E91717E28F009DE6CD /* InputUserName.h */,
+				AB4640EB1717EB76009DE6CD /* GameOverScreen.cpp */,
+				AB4640EC1717EB76009DE6CD /* GameOverScreen.h */,
 				AB266A8D17169397007930EB /* HelpScreen.cpp */,
 				AB266A8E17169397007930EB /* HelpScreen.h */,
 			);
@@ -2040,8 +2049,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB2667B317169261007930EB /* CloseNormal.png in Resources */,
-				AB2667B517169261007930EB /* CloseSelected.png in Resources */,
 				AB2667B717169261007930EB /* Default.png in Resources */,
 				AB2667BB17169261007930EB /* Icon-72.png in Resources */,
 				AB2667BD17169261007930EB /* Icon-Small-50.png in Resources */,
@@ -2327,6 +2334,9 @@
 				AB266A9E171693A8007930EB /* LoadingScreen.cpp in Sources */,
 				AB266A9F171693A8007930EB /* TranslateScreen.cpp in Sources */,
 				AB266B3E17169B13007930EB /* Music.cpp in Sources */,
+				AB266B411716D19A007930EB /* PlayScreen.cpp in Sources */,
+				AB4640EA1717E28F009DE6CD /* InputUserName.cpp in Sources */,
+				AB4640ED1717EB77009DE6CD /* GameOverScreen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2337,7 +2347,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vishal Golia (3XM3CCXB3N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vishal Golia (3XM3CCXB3N)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2358,7 +2369,9 @@
 					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/third_party/ios\"",
 					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "42406617-0706-413B-9408-1D703AB7A685";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "42406617-0706-413B-9408-1D703AB7A685";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2368,7 +2381,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Vishal Golia";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Vishal Golia";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
@@ -2386,8 +2400,10 @@
 					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/third_party/ios\"",
 					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "ADBEF251-18D8-44AB-A362-7510B43C599B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ADBEF251-18D8-44AB-A362-7510B43C599B";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

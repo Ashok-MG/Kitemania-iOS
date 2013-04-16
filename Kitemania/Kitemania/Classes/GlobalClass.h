@@ -21,14 +21,16 @@ class GlobalClass
 
 		static CCPoint getCenterPointOfSize(CCSize size);
 		
+		static void loadFontFiles();
 		static std::string getSmallFont(void);
 		static std::string getMessageFont(void);
 		static std::string getMenuFont(void);
 		static std::string getWordLatterFont(void);
 		static std::string getHelpMessageFont(void);
-		static std::string getCurrentLanguageName();
 		
-		static void loadFontFiles();
+		static std::string getCurrentLanguageName();
+		static std::string AMLocalization(std::string key, std::string dValue);
+		static void itoa(int n, char s[]);
 };
 
 #endif	//	__KiteMania_GlobalClass_h__

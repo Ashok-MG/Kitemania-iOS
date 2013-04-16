@@ -7,6 +7,7 @@
 //
 
 #include "Music.h"
+#include "Resources.h"
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
@@ -14,12 +15,12 @@ USING_NS_CC;
 Music::Music() {}
 Music::~Music()
 {
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect("Balloon.m4a");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect("CORRECTWORD.m4a");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect("FLICK.m4a");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect("HIT.m4a");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect("LETTERPICK.m4a");
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect("zap.m4a");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect(SFX_BIRD_HIT);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect(SFX_SUBMIT_CORRECT);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect(SFX_WORK_FLICK);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect(SFX_WORD_PICK);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect(SFX_AIRHOT_HIT);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->unloadEffect(SFX_LIGHT_HIT);
 }
 
 // singleton stuff
@@ -39,7 +40,7 @@ Music* Music::sharedMusic(void)
  */
 void Music::playBackgroundSound()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("BG.m4a", true);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(SFX_GAME_BG, true);
 }
 
 //Play sfx sound
@@ -92,7 +93,7 @@ void Music::resumeGameSound()
  */
 void Music::preLoadBackgroundMusic()
 {
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("BG.m4af");
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(SFX_GAME_BG);
 }
 
 /*

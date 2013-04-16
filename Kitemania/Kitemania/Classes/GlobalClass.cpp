@@ -6,6 +6,8 @@
 //
 
 #include "GlobalClass.h"
+#include "GameSettings.h"
+#include "Resources.h"
 
 //Use for font scaling according to screen resolution -- CC_CONTENT_SCALE_FACTOR = 1 means non-retina and 2 means retina
 float GlobalClass::getScaledFont(int fontSize)
@@ -125,4 +127,65 @@ void GlobalClass::loadFontFiles()
 ////        scLabel = CCLabelBMFont::labelWithString("0", GlobalClass::getMenuFont().c_str());
 //	scLabel = CCLabelBMFont::labelWithString("0", GlobalClass::getHelpMessageFont().c_str());
 //	scLabel = CCLabelBMFont::labelWithString("0", GlobalClass::getWordLatterFont().c_str());
+}
+
+std::string GlobalClass::getCurrentLanguageName()
+{
+    switch (GameSettings::sharedSetting()->getLanguageType())
+    {
+        case kTagEnglish:		return "English";
+		case kTagSpanish:		return "Spanish";
+		case kTagPortuguese:	return "Portuguese";
+        case kTagFrench:		return "French";
+        case kTagGerman:		return "German";
+    }
+    return "";
+}
+
+std::string GlobalClass::AMLocalization(std::string key, std::string dValue)
+{
+//	if (!dict) {
+//		std::string m_sPlistFile = CCFileUtils::fullPathFromRelativePath("language.plist");
+//		dict = CCFileUtils::dictionaryWithContentsOfFile(m_sPlistFile.c_str());
+//		CCAssert( dict != NULL, "Level: file not found");
+//		dict->retain();
+//	}
+//	
+//    CCDictionary<std::string, CCObject*> *LangsDict = (CCDictionary<std::string, CCObject*>*)dict->objectForKey(getCurrentLanguageName().c_str());
+//	
+//    LangsDict->begin();
+//    CCString *pString = (CCString*)LangsDict->objectForKey(key);
+//    dValue = pString ? pString->m_sString : dValue;
+    return dValue;
+}
+
+
+/* reverse:  reverse string s in place */
+void reverse(char s[])
+{
+    int i, j;
+    char c;
+	
+    for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+    }
+}
+
+/* itoa:  convert n to characters in s */
+void GlobalClass::itoa(int n, char s[])
+{
+    int i, sign;
+	
+    if ((sign = n) < 0)  /* record sign */
+        n = -n;          /* make n positive */
+    i = 0;
+    do {       /* generate digits in reverse order */
+        s[i++] = n % 10 + '0';   /* get next digit */
+    } while ((n /= 10) > 0);     /* delete it */
+    if (sign < 0)
+        s[i++] = '-';
+    s[i] = '\0';
+    reverse(s);
 }

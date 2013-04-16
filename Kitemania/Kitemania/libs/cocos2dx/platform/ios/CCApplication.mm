@@ -123,6 +123,13 @@ ccLanguageType CCApplication::getCurrentLanguage()
     return ret;
 }
 
+const char* CCApplication::getUTF8String(const char* str)
+{
+    NSString* string = [NSString stringWithFormat:@"%s",str];
+    return [string UTF8String];
+}
+
+
 TargetPlatform CCApplication::getTargetPlatform()
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) // idiom for iOS <= 3.2, otherwise: [UIDevice userInterfaceIdiom] is faster.

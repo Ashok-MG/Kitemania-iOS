@@ -563,6 +563,12 @@ static EAGLView *view = 0;
     return [[[UITextRange alloc] init] autorelease];
 }
 
+//Custom created by vinod
+//- (NSArray *)selectionRectsForRange:(UITextRange *)range;
+//{
+//	return NULL;
+//}
+
 #pragma mark UITextInput - Replacing and Returning Text
 
 - (NSString *)textInRange:(UITextRange *)range;

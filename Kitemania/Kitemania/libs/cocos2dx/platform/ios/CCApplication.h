@@ -61,6 +61,12 @@ public:
     */
     virtual ccLanguageType getCurrentLanguage();
     
+	/**
+	 @brief Get current language config
+	 @return Current language config
+	 */
+	const char* getUTF8String(const char* str);
+
     /**
      @brief Get target platform
      */

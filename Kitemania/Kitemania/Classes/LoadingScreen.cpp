@@ -11,6 +11,8 @@
 #include "GlobalClass.h"
 #include "Resources.h"
 #include "TranslateScreen.h"
+#include "GameSettings.h"
+#include "Music.h"
 
 USING_NS_CC;
 
@@ -75,67 +77,46 @@ void LoadingScreen::initScene(CCObject *pSender)
 	bgImage->addChild(KMLogo, 2);
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(KITEMANIA_LOGO);
 
-//	if (CC_GLVIEW::sharedOpenGLView().isIpad()) {
-//		KMLogo->setPosition( ccp(bgImage->getContentSize().width*0.5f, bgImage->getContentSize().height*0.85f));
-//	}
-	
 	//-------Add loading label
-//	CCLabelBMFont * ldgLabel = CCLabelBMFont::create(TranslateScreen::sharedTranslate()->localeString(TEXT_LOADING), Settings::getMenuFont().c_str());
-//	ldgLabel->setPosition(GlobalClass::getCenterPointOfSize(screenSize));
-//	this->addChild(ldgLabel,1);
+	CCLabelBMFont * ldgLabel = CCLabelBMFont::create(TranslateScreen::sharedTranslate()->localeString(TEXT_LOADING), GlobalClass::getMenuFont().c_str());
+	ldgLabel->setPosition(GlobalClass::getCenterPointOfSize(screenSize));
+	this->addChild(ldgLabel,1);
 	
     this->runAction( CCSequence::create(CCDelayTime::create(0.1), CCCallFuncN::create(this,callfuncN_selector(LoadingScreen::loadGameAssestes)), NULL));
 }
 
 void LoadingScreen::loadGameAssestes(CCNode* sender)
 {
-//    Music *gMusic=Music::getInstance();
-//	gMusic->preLoadBackgroundMusic(); 
-//	
-//	GameSettings *gSettings = GameSettings::getInstance();
-//    if(!gSettings->isStorageSet())
-//	{
-//        gSettings->setMode(0); // classic
-//        gSettings->setMusic(0); //musin on
-//        
-//        int currentLang = 0;
-//        switch (CCApplication::getCurrentLanguage()) {
-//            case 0://English
-//                currentLang = 0;
-//                break;
-//            case 2://French
-//                currentLang = 3;
-//                break;
-//            case 4://German
-//                currentLang = 4;
-//                break;
-//            case 5://Spanish
-//                currentLang = 1;
-//                break;
-//            case 6://Russian
-//                currentLang = 2;
-//                break;
-//            default:
-//                currentLang = 0;
-//                break;
-//		}
-//	}
-//		
-//	gSettings->setScore(0);
-//	gSettings->setTempData();
-////	Settings::loadFontFiles();
-//
-//	CCSprite *sp = CCSprite::spriteWithFile(TRANSPARENT_IMAGE);
-//	sp = CCSprite::spriteWithFile(KITEMANIA_LOGO);
-//	sp = CCSprite::spriteWithFile(PLAY_BG_IMAGE);
+    Music::sharedMusic()->preLoadBackgroundMusic();
 	
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_MENU, IMAGE_PNG_MENU);
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_GAME, IMAGE_PNG_GAME);
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_LIGHT, IMAGE_PNG_LIGHT);
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_OVER, IMAGE_PNG_OVER);
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_CIRCEL, IMAGE_PNG_CIRCEL);
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_EFFECT, IMAGE_PNG_EFFECT);
-//	CCTextureCache::sharedTextureCache()->purgeSharedTextureCache();
+	GameSettings *gSettings = GameSettings::sharedSetting();
+//    if(!gSettings->isStorageSet())
+	{
+		// Set the default classic mode
+        gSettings->setMode(kTagClassic);
+	
+		// Set the default sound setting to ON
+        gSettings->setMusic(kTagSoundOn);
+    
+		// Set the default language same as device if game not support device lang then we set english is default language
+        switch (CCApplication::sharedApplication()->getCurrentLanguage())
+		{
+            case kLanguageEnglish:		gSettings->setLanguageType(kTagEnglish); break;
+            case kLanguageSpanish:		gSettings->setLanguageType(kTagSpanish); break;
+            case kLanguagePortuguese:	gSettings->setLanguageType(kTagPortuguese); break;
+            case kLanguageFrench:		gSettings->setLanguageType(kTagFrench); break;
+            case kLanguageGerman:		gSettings->setLanguageType(kTagGerman); break;
+			default:					gSettings->setLanguageType(kTagEnglish); break;
+		}	
+	}
+		
+	// Set the default game score
+	gSettings->setScore(0);
+	gSettings->setTempData();
+//	Settings::loadFontFiles();
+	
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_MENU, IMAGE_PNG_MENU);
+	CCTextureCache::sharedTextureCache()->purgeSharedTextureCache();
 
 	this->runAction( CCSequence::create(CCDelayTime::create(0.1), CCCallFuncN::create(this, callfuncN_selector(LoadingScreen::startGame)), NULL));
 }

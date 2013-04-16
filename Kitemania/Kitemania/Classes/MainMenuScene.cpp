@@ -12,6 +12,7 @@
 #include "TranslateScreen.h"
 #include "GameSettings.h"
 #include "HelpScreen.h"
+#include "PlayScreen.h"
 #include "Music.h"
 
 enum
@@ -57,7 +58,11 @@ CCScene* MainMenuScene::scene()
 
 MainMenuScene::MainMenuScene() {}
 
-MainMenuScene::~MainMenuScene() {}
+MainMenuScene::~MainMenuScene()
+{
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_MENU);
+	removeAllChildrenWithCleanup(true);
+}
 
 bool MainMenuScene::init()
 {
@@ -83,9 +88,6 @@ void MainMenuScene::onEnter()
 
 void MainMenuScene::onExit()
 {
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile(IMAGE_PLIST_MENU);
-
-	removeAllChildrenWithCleanup(true);
     CCLayer::onExit();
 }
 
@@ -110,17 +112,9 @@ void MainMenuScene::initScene(CCObject *pSender)
 
 	//----Add zoom animation with kite-mania logo
 	KMLogo->runAction(CCScaleTo::create(0.5, 1.0));
-
-//	if (CC_GLVIEW::sharedOpenGLView().isIpad()) {
-//		KMLogo->setPosition( ccp(bgImage->getContentSize().width*0.5f, bgImage->getContentSize().height*0.85f));
-//	}
 	
 	addGameMenuMethod();
-	
-    if(GameSettings::sharedSetting()->getMusic() == 0)
-    {
-		Music::sharedMusic()->playBackgroundSound();
-    }
+    if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn) Music::sharedMusic()->playBackgroundSound();
 }
 
 void MainMenuScene::addGameMenuMethod()
@@ -135,7 +129,6 @@ void MainMenuScene::addGameMenuMethod()
     label->setPosition( ccp(mItmPlay->getContentSize().width * 0.15f, mItmPlay->getContentSize().height * 0.47f));
 	label->setAnchorPoint( ccp(0, 0.5));
 	mItmPlay->addChild(label, 0, kTagPlayLbl);
-	
 	
 	//------------------Language menu
 	CCMenuItemSprite* mItmLang = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(MENU_LANGUAGE_UP), CCSprite::createWithSpriteFrameName(MENU_LANGUAGE_DOWN), this, menu_selector(MainMenuScene::langMenuMethod));
@@ -152,7 +145,6 @@ void MainMenuScene::addGameMenuMethod()
 	lStateLbl->setPosition( ccp(mItmLang->getContentSize().width * 0.95f, mItmLang->getContentSize().height * 0.47f));
 	lStateLbl->setAnchorPoint( ccp(1, 0.5));
 	mItmLang->addChild(lStateLbl, 0);
-
 	
 	//------------------Mode menu
 	CCMenuItemSprite* mItmMode = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(MENU_MODE_UP), CCSprite::createWithSpriteFrameName(MENU_MODE_DOWN), this, menu_selector(MainMenuScene::modeMenuMethod));
@@ -170,12 +162,8 @@ void MainMenuScene::addGameMenuMethod()
 	mStateLbl->setAnchorPoint( ccp(1, 0.5));
 	mItmMode->addChild(mStateLbl, 0);
         
-	if (GameSettings::sharedSetting()->getMode() == 1) {
-		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_ENDLESS)); 
-        
-    } else if (GameSettings::sharedSetting()->getMode() == 2) {
-		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_TIMER));
-    }
+	if (GameSettings::sharedSetting()->getMode() == kTagEndless) mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_ENDLESS));
+    else if (GameSettings::sharedSetting()->getMode() == kTagTimer) mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_TIMER));
 	
 	//------------------Sound menu
 	CCMenuItemSprite* mItmSound = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(MENU_SOUND_UP), CCSprite::createWithSpriteFrameName(MENU_SOUND_DOWN), this, menu_selector(MainMenuScene::soundMenuMethod));
@@ -193,9 +181,7 @@ void MainMenuScene::addGameMenuMethod()
 	sStateLbl->setAnchorPoint( ccp(1, 0.5));
 	mItmSound->addChild(sStateLbl, 0);
 
-	if (GameSettings::sharedSetting()->getMusic() == 1) {
-		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_OFF));
-    }
+	if (GameSettings::sharedSetting()->getMusic() == kTagSoundOff) sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_OFF));
 	
 	//------------------help menu
 	CCMenuItemSprite* mItmHelp = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(MENU_HELP_UP), CCSprite::createWithSpriteFrameName(MENU_HELP_DOWN), this, menu_selector(MainMenuScene::helpMenuMethod));
@@ -208,7 +194,6 @@ void MainMenuScene::addGameMenuMethod()
 	label->setAnchorPoint( ccp(0, 0.5));
 	mItmHelp->addChild(label, 0, kTagHelpLbl);
 	
-
 	//------------Exit menu
 	CCMenuItemSprite* mItmExit = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(MENU_EXIT_UP), CCSprite::createWithSpriteFrameName(MENU_EXIT_DOWN), this, menu_selector(MainMenuScene::exitMenuMethod));
 	mItmExit->setTag(kTagExitMenu);
@@ -224,8 +209,7 @@ void MainMenuScene::addGameMenuMethod()
 	CCMenu *gameMenu = CCMenu::create(mItmPlay, mItmLang, mItmMode, mItmSound, mItmHelp, mItmExit, NULL);
 	gameMenu->setPosition( CCPointZero);
 	this->addChild(gameMenu, 1, kTagMainMenu);
-	    		
-//	CCTouchDispatcher::sharedDispatcher()->setDispatchEvents(false);
+	CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(false);
 
     //run action-------------------
     CCActionInterval* move = CCMoveBy::create(2, CCPointMake(screenSize.width ,0));
@@ -261,7 +245,7 @@ void MainMenuScene::addGameMenuMethod()
 
 void MainMenuScene::enableAllMenus(cocos2d::CCObject* sender)
 {
-//	CCTouchDispatcher::sharedDispatcher()->setDispatchEvents(true);
+	CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(true);
 }
 
 //PLAY GAME MENU METHOD
@@ -273,7 +257,7 @@ void MainMenuScene::playGameMenuMethod(cocos2d::CCObject* sender)
 		GameSettings::sharedSetting()->setScore(0);
 		GameSettings::sharedSetting()->setOldLife(4);
 	}
-//	CCDirector::sharedDirector()->pushScene(PlayScreen::scene());
+	CCDirector::sharedDirector()->pushScene(PlayScreen::scene());
 }
 
 //PLAY Language MENU METHOD
@@ -283,17 +267,15 @@ void MainMenuScene::langMenuMethod(cocos2d::CCObject* sender)
 
 	switch (settings->getLanguageType()) 
     {
-        case 0: settings->setLangugaeType(1);
+        case kTagEnglish:		settings->setLanguageType(kTagSpanish);
             break;
-		case 1: settings->setLangugaeType(2);
+		case kTagSpanish:		settings->setLanguageType(kTagPortuguese);
             break;
-		case 2: settings->setLangugaeType(3);
+		case kTagPortuguese:	settings->setLanguageType(kTagFrench);
             break;
-        case 3: settings->setLangugaeType(4);
+        case kTagFrench:		settings->setLanguageType(kTagGerman);
             break;
-        case 4: settings->setLangugaeType(0);
-            break;
-        default: settings->setLangugaeType(0);
+        case kTagGerman:		settings->setLanguageType(kTagEnglish);
             break;
     }
 
@@ -324,39 +306,31 @@ void MainMenuScene::langMenuMethod(cocos2d::CCObject* sender)
     lNode = (CCLabelBMFont*)mNode->getChildByTag(kTagExitLbl);
     lNode->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_EXIT));
 
-    if (settings->getMode() == 0) {
-		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_CLASSIC));
-	}
-	else if (settings->getMode() == 1) {
-		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_ENDLESS));
-	}
-	else {
-		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_TIMER));
-    }
+    if (settings->getMode() == kTagClassic) mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_CLASSIC));
+	else if (settings->getMode() == kTagEndless) mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_ENDLESS));
+	else if (settings->getMode() == kTagTimer) mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_TIMER));
     
-    if (settings->getMusic() == 0) {
-		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_ON));
-	}
-	else {
-		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_OFF));
-	}
+    if (settings->getMusic() == kTagSoundOn) sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_ON));
+	else sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_OFF));
 }
 
 //PLAY Sound MENU METHOD
 void MainMenuScene::modeMenuMethod(cocos2d::CCObject* sender)
 {
 	GameSettings* settings = GameSettings::sharedSetting();
-	
-	if (settings->getMode() == 0) {
-		settings->setMode(1);
+	if (settings->getMode() == kTagClassic)
+	{
+		settings->setMode(kTagEndless);
 		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_ENDLESS));
 	}
-	else if (settings->getMode() == 1) {
-		settings->setMode(2);
+	else if (settings->getMode() == kTagEndless)
+	{
+		settings->setMode(kTagTimer);
 		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_TIMER));
 	}
-	else {
-		settings->setMode(0);
+	else if (settings->getMode() == kTagTimer)
+	{
+		settings->setMode(kTagClassic);
 		mStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_MODE_CLASSIC));
     }
 }
@@ -365,15 +339,15 @@ void MainMenuScene::modeMenuMethod(cocos2d::CCObject* sender)
 void MainMenuScene::soundMenuMethod(cocos2d::CCObject* sender)
 {
     GameSettings* settings = GameSettings::sharedSetting();
-	
-	if (settings->getMusic() == 0)
+	if (settings->getMusic() == kTagSoundOn)
 	{
-		settings->setMusic(1);
+		settings->setMusic(kTagSoundOff);
 		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_OFF));
 		Music::sharedMusic()->muteGameSound();
 	}
-	else {
-		settings->setMusic(0);
+	else if (settings->getMusic() == kTagSoundOff)
+	{
+		settings->setMusic(kTagSoundOn);
 		sStateLbl->setString(TranslateScreen::sharedTranslate()->localeString(TEXT_MENU_SOUND_ON));
 		Music::sharedMusic()->resumeGameSound();
 	}
