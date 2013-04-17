@@ -16,36 +16,33 @@ USING_NS_CC;
 class  PlayScreen : public CCLayerColor
 {
     private:
-		
-		
         CCArray *_leftKites;
 		CCArray *_colWord;
 		CCArray *_bubbles;
 		CCArray *_obstacles;
-
-		CCSprite *optionalBubble;
-        CCLabelTTF *optionalLabel;
-        
-        bool isRunningTick;
-		bool isFlicking;
-		int movedBallCounter;
-		float m_time;
-		
+	
 		CCSize screenSize;
-        int score;
-        CCPoint touchLocation;
-        CCSprite *kite;
-        std::string bonusPointWord;
-		int cScore;
+		
+		CCSprite *kite;
+		CCSprite *optionalBubble;
+	
+		float m_time;
+		int m_score;
+	
+		int movingBallCount;
+        bool isAllowCollision;
+
+		CCString *alphabets;
+		CCString *dictWordList;
+        CCString *bonusWord;
+		CCString *collectedWords;
+
 		unsigned int ci;
 
-		std::string wordList;
 		char wordChar[20];
 //		int alphaCount, alphaListArray[500];
-		CCString *alphabets;
 	
-		void getAllAlpha(CCNode* sender);
-		void getAllWordFromDictionary(CCNode* sender);
+		void loadAlphabetDictionary(CCNode* sender);
 
 		void addGameScores();
 		void addGameLife();
@@ -63,10 +60,11 @@ class  PlayScreen : public CCLayerColor
 		void destroyObstacles(CCNode* pSender);
 		
 		void tick(float dt);
-		void kiteFall(CCNode* sender);
-		void resetKitePosition(CCNode *sender);
-		void setIsKiteBlinking(CCNode* sender);
-        void setIsKiteBlinkingEnd(CCNode* sender);
+		void autoKiteFall(CCNode* sender);
+		void showKiteCollisionAnimation(CCNode *sender);
+		void resetToKite(CCNode* sender);
+		void enableAllowCollision(CCNode* sender);
+
         void showMessage(std::string msg, bool status);
 		void showCollectWordAnimation(CCNode* sender);
 		void showAnimatedScore(CCNode* sender);

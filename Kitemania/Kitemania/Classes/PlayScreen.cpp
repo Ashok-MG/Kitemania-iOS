@@ -26,18 +26,13 @@
 
 enum
 {
-	kTagSpriteScore = 30,
-	kTagSpriteScoreLbl,
-	kTagSpriteSubmit,
-    kTagSpriteBack,
-    kTagSpriteKite,    
-    kTagSpriteBirds,
-    kTagSpriteBall,
-    kTagBgImage,
-	kTagTimeLbl,
+	kTagScores = 30,
+	kTagTimers,
+	kTagSpriteBallLbl,
+    kTagKite,
+	kTagBonusWord,
 	kTagMenus,
 	kTagScorePanel,
-    kTagBonusPointWord,
 };
 
 enum {
@@ -141,12 +136,17 @@ void PlayScreen::initScene(CCNode* sender)
 	_obstacles = new CCArray();
 	_bubbles = new CCArray();
 	
-//	wordList = NULL;
+	
+	m_time = 90;
+	m_score = 0;
 
+	movingBallCount = 0;
+	isAllowCollision = true;
+	kite = NULL;
+	optionalBubble = NULL;
+	alphabets = dictWordList = bonusWord = NULL;
+	
 	wordChar[0] = '\0';
-	isRunningTick = false;
-	isFlicking = false;
-	movedBallCounter = 0;
 	ci = 0;
 
 	screenSize = CCDirector::sharedDirector()->getWinSize();
@@ -156,7 +156,7 @@ void PlayScreen::initScene(CCNode* sender)
     bgImage->setScale(GlobalClass::getScaleByScreen());
 	bgImage->setAnchorPoint(ccp(0.5, 0));
 	bgImage->setPosition( ccp(screenSize.width*0.5, 0));
-	this->addChild(bgImage, 0, kTagBgImage);
+	this->addChild(bgImage);
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(PLAY_BG_IMAGE);
 	
 	//-------Add Kite wall
@@ -185,13 +185,19 @@ void PlayScreen::initScene(CCNode* sender)
 	kite = CCSprite::createWithSpriteFrameName("kRed.png");
 	kite->setScale(GlobalClass::getScaleByScreen());
 	kite->setPosition( ccp(screenSize.width * 0.5f, screenSize.width * 0.31f));
-	this->addChild(kite, 4, kTagSpriteKite);
+	this->addChild(kite, 4, kTagKite);
 	
 	//-----call add score method
 	addGameScores();
 	
+	// Load alphabet and dictionary file and then show suggested bonus word 
+	this->runAction(CCSequence::create(CCDelayTime::create(0.1), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::loadAlphabetDictionary)), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::addBonusPointsWord)), NULL));
+
 	//-----call add cloud method
 	this->runAction(CCSequence::create(CCDelayTime::create(CCRANDOM_0_1()*8 + 4), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::addMoveClouds)), NULL));
+
+	//------call add balls
+	this->runAction(CCSequence::create(CCDelayTime::create(CCRANDOM_0_1()*5 + 0.3f), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::addMoveBalls)), NULL));
 
 	if (GameSettings::sharedSetting()->getMode() == kTagClassic)
 	{
@@ -212,14 +218,9 @@ void PlayScreen::initScene(CCNode* sender)
 		//----call add timer method
 		addGameTimer();
 	}
-    
-    this->runAction(CCSequence::create(CCDelayTime::create(0.1), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::getAllAlpha)), CCDelayTime::create(0.1), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::getAllWordFromDictionary)), CCDelayTime::create(0.1), NULL));
-				
-//	//------call add balls
-//	schedule(schedule_selector(PlayScreen::addMoveBalls), 2.5f); 
-//
+
 //	//-----chicking collision
-//	schedule(schedule_selector(PlayScreen::tick));
+	schedule(schedule_selector(PlayScreen::tick));
 	
 	Music *gMusic = Music::sharedMusic();
 	if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn)
@@ -232,8 +233,6 @@ void PlayScreen::initScene(CCNode* sender)
 		gMusic->preloadEffectSound(SFX_LIGHT_HIT);
 	}
     
-    optionalBubble = NULL;
-    optionalLabel = NULL;
     backButtonState = kStateGamePlay;
 }
 
@@ -251,7 +250,7 @@ void PlayScreen::addMoveClouds(float t)
 	CCSize cSize = cloud->boundingBox().size;
 	
 	//Get random position of X - cloud moving from left to right or right to left
-	float offScreenXPosition = cSize.width/2 * -1;
+	float offScreenXPosition = -cSize.width/2;
     float xPosition = screenSize.width + cSize.width/2;
     if (CCRANDOM_0_1() * 2 < 1) CC_SWAP(offScreenXPosition, xPosition, float);
 	
@@ -271,13 +270,12 @@ void PlayScreen::addMoveAirHot(float t)
 {	
     CCSprite *airHot = CCSprite::createWithSpriteFrameName(HOT_BALLON);
     airHot->setScale(GlobalClass::getScaleBySprite());
-	airHot->setTag(kObstacleAirhot);
-	this->addChild(airHot, CCRANDOM_0_1() * 2 + 1);
+	this->addChild(airHot, CCRANDOM_0_1() * 2 + 1, kObstacleAirhot);
 
 	CCSize aSize = airHot->boundingBox().size;
 	
 	//Get random position of X - airhot moving from left to right or right to left
-	float offScreenXPosition = aSize.width/2 * -1;
+	float offScreenXPosition = -aSize.width/2;
     float xPosition = screenSize.width + aSize.width/2;
     if (CCRANDOM_0_1() * 2 < 1) CC_SWAP(offScreenXPosition, xPosition, float);
 
@@ -301,8 +299,7 @@ void PlayScreen::addMoveBirds(float t)
 
     CCSprite *bird = CCSprite::createWithSpriteFrameName("bird1.png");
 	bird->setScale(GlobalClass::getScaleBySprite());
-	bird->setTag(kObstacleBird);
-    this->addChild(bird, CCRANDOM_0_1() * 2 + 1, kTagSpriteBirds);
+    this->addChild(bird, CCRANDOM_0_1() * 2 + 1, kObstacleBird);
 
     char buff[20] = {0};
 	for(int i=1; i<=4; i++)
@@ -348,8 +345,7 @@ void PlayScreen::addThunderbolt(float t)
 
     CCSprite *light = CCSprite::createWithSpriteFrameName("lighting1.png");
 	light->setScale(GlobalClass::getScaleBySprite());
-	light->setTag(kObstacleThunder);
-	this->addChild(light, CCRANDOM_0_1() * 2 + 1);
+	this->addChild(light, CCRANDOM_0_1() * 2 + 1, kObstacleThunder);
 
     char buff[25] = {0};
 	for(int i=1; i<=17; i++)
@@ -401,148 +397,94 @@ void PlayScreen::addGameScores()
 	CCLabelBMFont *scoreTitle = CCLabelBMFont::create(TranslateScreen::sharedTranslate()->localeString(TEXT_PLAY_SCORE), GlobalClass::getHelpMessageFont().c_str());
 	scoreTitle->setAnchorPoint(ccp(0, 0.5));
 	scoreTitle->setPosition(ccp(screenSize.width*0.03f, screenSize.height*0.95f));
-	this->addChild(scoreTitle, 6, kTagSpriteScoreLbl);
+	this->addChild(scoreTitle, 6);
     
-	char scr[10] = "0";
 	GameSettings *gSettings = GameSettings::sharedSetting();
 	if (gSettings->getMode() == kTagClassic)
 	{
-		sprintf(scr, "%d", gSettings->getOldScore());
+		m_score = gSettings->getOldScore();
 		gSettings->setOldScore(0);
 	}
 	else gSettings->setScore(0);
 	
+	char scr[10] = "0";
+	sprintf(scr, "%d", m_score);
     CCLabelBMFont *scLabel = CCLabelBMFont::create(scr, GlobalClass::getHelpMessageFont().c_str());
 	scLabel->setPosition( ccp(scoreTitle->boundingBox().size.width + scoreTitle->boundingBox().origin.x, screenSize.height*0.95f));
 	scLabel->setColor( ccc3(255, 255, 0));
 	scLabel->setAnchorPoint( ccp(0, 0.5));
-	this->addChild(scLabel, 6, kTagSpriteScore);
+	this->addChild(scLabel, 6, kTagScores);
 }
 
 void PlayScreen::addGameTimer()
 {
-	m_time = 90;
 	char timer[10] = {0};
 	sprintf(timer, "%s%.0f", TranslateScreen::sharedTranslate()->localeString(TEXT_PLAY_TIMER), m_time);
 
 	CCLabelBMFont *timeLabel = CCLabelBMFont::create(timer, GlobalClass::getHelpMessageFont().c_str());
 	timeLabel->setPosition(ccp(screenSize.width*0.97f, screenSize.height*0.95f));
 	timeLabel->setAnchorPoint(ccp(1, 0.5));
-	this->addChild(timeLabel, 6, kTagTimeLbl);
+	this->addChild(timeLabel, 6, kTagTimers);
 }
 
 void PlayScreen::addMoveBalls(float t)
 {
-		//-----Get image of ball.png that have in GameScreen_Ass.plist file
+	//-----Get image of ball.png that have in GameScreen_Ass.plist file
 	CCSprite* ball = CCSprite::createWithSpriteFrameName(BALL_IMAGE);
 	ball->setScale( GlobalClass::getScaleByScreen()*0.82f);
-    
-	CCSprite* ball2 = CCSprite::createWithSpriteFrameName(BALL_IMAGE);
-	ball2->setScale( GlobalClass::getScaleByScreen()*0.82f);
-    
-	CCSize bSize = ball->boundingBox().size;
 	
-		////ball 111
-    int n = getRandomLettor();
+	//get random ASCII char value
+	int n = getRandomLettor();
+	ball->setTag(n);
 	
-    ball->setTag(n);
-    char alphabet[1];
+    char alphabet[1] = {0};
     sprintf(alphabet,"%c", n);
     
 	CCLabelTTF *alphabetLabel = CCLabelTTF::create(CCApplication::sharedApplication()->getUTF8String(alphabet), FONT_SEGOECBD, GlobalClass::getScaledFont(44));
     alphabetLabel->setColor( ccc3(0, 0, 0));
-		//------------------------------------------
-    
-		//ball2
-    srand((unsigned int)(time(NULL)+n));
-    n = getRandomLettor();
-	
-	ball2->setTag(n);
-    sprintf(alphabet,"%c",n);
-	CCLabelTTF *alphabetLabel2 = CCLabelTTF::create(CCApplication::sharedApplication()->getUTF8String(alphabet), FONT_SEGOECBD, GlobalClass::getScaledFont(44));
-    alphabetLabel2->setColor( ccc3(0, 0, 0));
-    
-		//---------------------------------------
-    
-    float minX = bSize.width/2;
-    float maxX = screenSize.width - (bSize.width/2);
-	
-    ball->addChild(alphabetLabel);
-    ball2->addChild(alphabetLabel2);
-    
-    alphabetLabel->setPosition( ccp(ball->getContentSize().width/2, ball->getContentSize().height/2));
-    alphabetLabel2->setPosition( ccp(ball2->getContentSize().width/2, ball2->getContentSize().height/2));
-    
-    int rangeX=(int)(maxX - minX);
-	int actualX = rand()%rangeX + minX;
-    
-	ball->setPosition( ccp(actualX,screenSize.height + (bSize.height/2)));
+    alphabetLabel->setPosition(GlobalClass::getCenterPointOfSize(ball->getContentSize()));
+	ball->addChild(alphabetLabel, 1, kTagSpriteBallLbl);
+
+	CCSize bSize = ball->boundingBox().size;
+
+	//Get random x position
+    float xPosition = screenSize.width - bSize.width/2;
+	xPosition = CCRANDOM_0_1()*(xPosition - bSize.width/2) + bSize.width/2;
+	ball->setPosition( ccp(xPosition, screenSize.height + bSize.height*0.5f));
 	this->addChild(ball, 3);
     
+	//Get random speed
+    float moveDuration = CCRANDOM_0_1() * (kBallMaxMoveDuration - kBallMinMoveDuration) + kBallMinMoveDuration;
     
-    srand((unsigned int)(time(NULL)+n+rangeX+actualX));
+    ball->runAction(CCSequence::create(CCMoveTo::create(moveDuration, ccp(xPosition, -bSize.height*0.5f)), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::destroyBalls)), NULL));
     
-	int moveDuration=rand()%kBallMaxMoveDuration+1;
-    if (moveDuration < kBallMinMoveDuration) {
-        moveDuration = kBallMinMoveDuration;
-    }
-    
-    srand((unsigned int)(time(NULL)+n));
-	int actualX2 = rand()%rangeX + minX;
-    
-    float diff = abs(actualX2-actualX);
-	
-    if(diff < bSize.width)
-		{
-        actualX2 = actualX2 + 2*bSize.width;
-        if(maxX <= actualX2) {
-            actualX2 = actualX2 - 2*bSize.width;
-        }
-		}
-    
-	ball2->setPosition( ccp(actualX2,screenSize.height + (bSize.height/2)));
-	this->addChild(ball2, 3);
-    
-    
-    srand((unsigned int)(time(NULL)+n+rangeX+actualX2));
-    
-	int moveDuration2=rand()%kBallMaxMoveDuration+1;
-    if (moveDuration2 < kBallMinMoveDuration) {
-        moveDuration2 = kBallMinMoveDuration;
-    }
-    
-    if(moveDuration2==moveDuration) {
-        moveDuration2=moveDuration2-4;
-    }
-    
-    CCFiniteTimeAction* actionMove = CCMoveTo::create(moveDuration,ccp(actualX, 0 - bSize.height/2) );
-    ball->runAction(CCSequence::create(actionMove, CCCallFuncN::create(this,callfuncN_selector(PlayScreen::destroyBalls)), NULL));
-    
-    CCFiniteTimeAction* actionMove2 = CCMoveTo::create(moveDuration2,ccp(actualX2, 0 - bSize.height/2) );
-    ball2->runAction(CCSequence::create(actionMove2, CCCallFuncN::create(this,callfuncN_selector(PlayScreen::destroyBalls)), NULL));
-    
-    srand((unsigned int)(time(NULL))/4);
-    if (rand()%4 == 2) {
+	// Set some ball with random optional charactor - character will changed every 2 sec.
+    if (CCRANDOM_0_1()*4 < 2)
+	{
         if (optionalBubble == NULL)
-			{
+		{
             optionalBubble = ball;
-            optionalLabel = alphabetLabel;
-            schedule(schedule_selector(PlayScreen::changeOptionalBallChar), 1.0f);
-			}
+            schedule(schedule_selector(PlayScreen::changeOptionalBallChar), 2.0f);
+		}
 	}
-    
+	
     _bubbles->addObject(ball);
-    _bubbles->addObject(ball2);
+	this->runAction(CCSequence::create(CCDelayTime::create(CCRANDOM_0_1()*5 + 0.3f), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::addMoveBalls)), NULL));
 }
 
 void PlayScreen::changeOptionalBallChar(float t)
 {
-	int n = getRandomLettor();
-	
-	char alphabet[1];
-	optionalBubble->setTag(n);
-	sprintf(alphabet,"%c",n);
-    optionalLabel->setString(CCApplication::sharedApplication()->getUTF8String(alphabet));
+	if (optionalBubble)
+	{
+		int n = getRandomLettor();
+		optionalBubble->setTag(n);
+		
+		char alphabet[1] = {0};
+		sprintf(alphabet,"%c", n);
+
+		CCLabelTTF *alphabetLabel = (CCLabelTTF*)optionalBubble->getChildByTag(kTagSpriteBallLbl);
+		alphabetLabel->setString(CCApplication::sharedApplication()->getUTF8String(alphabet));
+	}
 }
 
 void PlayScreen::tick(float dt)
@@ -550,8 +492,8 @@ void PlayScreen::tick(float dt)
 	if (GameSettings::sharedSetting()->getMode() == kTagTimer)
 	{
 		m_time -= dt;
-		
-		if (m_time <= 0) {
+		if (m_time <= 0)
+		{
 			clickOnYesButton(this);
 			return;
 		}
@@ -559,11 +501,11 @@ void PlayScreen::tick(float dt)
 		char timer[10] = {0};
 		sprintf(timer, "%s%.0f", TranslateScreen::sharedTranslate()->localeString(TEXT_PLAY_TIMER), m_time);
 
-		CCLabelBMFont *tLbl = (CCLabelBMFont*)this->getChildByTag(kTagTimeLbl);
+		CCLabelBMFont *tLbl = (CCLabelBMFont*)this->getChildByTag(kTagTimers);
 		tLbl->setString(timer);
 	}
 	
-	if (isRunningTick == true) return;
+	if (!isAllowCollision) return;
 	
 	if (kite)
 	{
@@ -581,20 +523,19 @@ void PlayScreen::tick(float dt)
 				
                 if (bubbleRect.intersectsRect(kiteRect))
 				{
-					unsigned int wordCount = strlen(wordChar);
-					
-					if (wordCount < 8)
+					if (strlen(wordChar) < 8)
 					{
 						float bSizeW = bubble->boundingBox().size.width * 1.105;
-						isFlicking = true;
-						movedBallCounter++;
+
+						movingBallCount++;
+						isAllowCollision = false;
 						
 						//play letter sound
 						if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_WORD_PICK);
 						
 						_colWord->addObject(bubble);
-						if (wordChar[0]=='\0') sprintf(wordChar, "%c",bubble->getTag());
-						else sprintf(wordChar ,"%s%c",wordChar,bubble->getTag());
+						if (wordChar[0] == '\0') sprintf(wordChar, "%c", bubble->getTag());
+						else sprintf(wordChar , "%s%c", wordChar, bubble->getTag());
 						
 						bubble->stopAllActions();
 						_bubbles->removeObject(bubble);
@@ -602,7 +543,6 @@ void PlayScreen::tick(float dt)
 						if (bubble==optionalBubble)
 						{
 							optionalBubble = NULL;
-							optionalLabel = NULL;
 							unschedule(schedule_selector(PlayScreen::changeOptionalBallChar));
 						}
 						
@@ -624,7 +564,7 @@ void PlayScreen::tick(float dt)
 				{
 					//play bird-hit sound
 					if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_BIRD_HIT);
-					resetKitePosition(this);
+					showKiteCollisionAnimation(this);
                     break;
 				}
 			}
@@ -643,9 +583,8 @@ void PlayScreen::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 	CCPoint location = pTouch->getLocationInView();
 	location = CCDirector::sharedDirector()->convertToGL(location);
 	
-	if (location.y < screenSize.height * 0.166f || isRunningTick == true) {
-		return;
-	}
+	if (location.y < screenSize.height*0.166f || !isAllowCollision) return;
+
 	
 	kite->stopAllActions();
     
@@ -681,24 +620,20 @@ void PlayScreen::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 	
 //	CCLOG("o %f a %f",o,a);
 	if (o == 0 && a == 0) 
-	{
-		kite->runAction( CCSequence::create(CCCallFuncN::create(this, callfuncN_selector(PlayScreen::kiteFall)), NULL));
-		return;
-	}
-	
-    kite->runAction( CCSequence::create(CCRotateTo::create(0.2, at), CCMoveTo::create(area/400, location), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::kiteFall)), NULL));
-} 
+		kite->runAction( CCCallFuncN::create(this, callfuncN_selector(PlayScreen::autoKiteFall)));
+	else
+		kite->runAction( CCSequence::create(CCRotateTo::create(0.2, at), CCMoveTo::create(area/400, location), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::autoKiteFall)), NULL));
+}
 
 void PlayScreen::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
+	if (!isAllowCollision) return;
+
     CCPoint location = touch->getLocationInView();
     location =CCDirector::sharedDirector()->convertToGL(location);
 
-	
     CCRect pointRect = CCRectMake(location.x, location.y, 1, 1);
 	    
-	if (isFlicking == true) return;
-	
 	int count= _colWord->count();
     for (int i=0; i < count; i++)
 	{
@@ -717,41 +652,36 @@ void PlayScreen::ccTouchMoved(CCTouch* touch, CCEvent* event)
 
             for (int j=i; j<count; j++) 
 			{
-				isRunningTick = true;
+				isAllowCollision = false;
 
                 wordChar[j] = wordChar[j+1];
 				temSprite = (CCNode *) _colWord->objectAtIndex(j);
-				temSprite->runAction( CCSequence::create( CCMoveTo::create(0.1 , CCPointMake(screenSize.width * 0.089f + ((j+1) * bSizeW), temSprite->getPositionY())), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::setIsKiteBlinkingEnd)), NULL));
+				temSprite->runAction( CCSequence::create( CCMoveTo::create(0.1 , CCPointMake(screenSize.width * 0.089f + ((j+1) * bSizeW), temSprite->getPositionY())), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::enableAllowCollision)), NULL));
             }
 			wordChar[count] = '\0';
-			
             break;
 		}
 	}
 }
 
 //touch events methods ended
-void PlayScreen::kiteFall(CCNode* sender)
+void PlayScreen::autoKiteFall(CCNode* sender)
 {
-	//compare co-ordinates
-	float sp = kite->getPositionY() / 50;
-	CCActionInterval *move = CCMoveTo::create(sp, ccp(kite->getPositionX(), 0));
-	kite->runAction( CCSequence::create(move, CCCallFuncN::create(this, callfuncN_selector(PlayScreen::resetKitePosition)), NULL));
+	kite->runAction( CCSequence::create(CCMoveTo::create(kite->getPositionY()*0.02f, ccp(kite->getPositionX(), 0)), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::showKiteCollisionAnimation)), NULL));
 }
 
-void PlayScreen::resetKitePosition(CCNode *sender)
+void PlayScreen::showKiteCollisionAnimation(CCNode *sender)
 {
+	isAllowCollision = false;
 	kite->stopAllActions();
-	isRunningTick = true;
-	
-    kite->runAction( CCSequence::create(CCBlink::create(0.5, 3), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::setIsKiteBlinking)), NULL));
+    kite->runAction(CCSequence::create(CCBlink::create(0.5f, 3), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::resetToKite)), NULL));
 }
 
-void PlayScreen::setIsKiteBlinking(CCNode* sender)
+void PlayScreen::resetToKite(CCNode* sender)
 {
 	kite->setPosition( ccp(screenSize.width*0.5f, screenSize.width*0.31f));
 	kite->setRotation(0);
-	kite->runAction( CCSequence::create( CCFadeIn::create(1), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::setIsKiteBlinkingEnd)), NULL));
+	kite->runAction(CCSequence::create(CCFadeIn::create(1), CCCallFuncN::create(this, callfuncN_selector(PlayScreen::enableAllowCollision)), NULL));
 
     if (GameSettings::sharedSetting()->getMode() == kTagClassic)
 	{
@@ -773,9 +703,91 @@ void PlayScreen::setIsKiteBlinking(CCNode* sender)
 	}
 }
 
-void PlayScreen::setIsKiteBlinkingEnd(CCNode* sender)
+void PlayScreen::enableAllowCollision(CCNode* sender)
 {
-	isRunningTick = false;
+	isAllowCollision = true;
+}
+
+void PlayScreen::loadAlphabetDictionary(CCNode* sender)
+{
+	//load all word for select language fron its dictionary string
+	char lanName[30] = {0};
+	sprintf(lanName, "%s_Alp.txt", GlobalClass::getCurrentLanguageName().c_str());
+	
+	CCString *rData = CCString::createWithContentsOfFile(CCFileUtils::sharedFileUtils()->fullPathForFilename(lanName).c_str());
+	alphabets = new CCString(*rData);
+	
+	//load all word for select language fron its dictionary string
+	sprintf(lanName, "%s.txt", GlobalClass::getCurrentLanguageName().c_str());
+	
+	rData = CCString::createWithContentsOfFile(CCFileUtils::sharedFileUtils()->fullPathForFilename(lanName).c_str());
+	dictWordList = new CCString(*rData);
+}
+
+void PlayScreen::addBonusPointsWord(CCNode * sender)
+{	
+	if (dictWordList->length() < 1)
+	{
+		loadAlphabetDictionary(NULL);
+		return;
+	}
+	
+    while (true)
+	{
+        int sPos = CCRANDOM_0_1() * dictWordList->length();
+        int s = dictWordList->m_sString.find(",", sPos);
+        int e = dictWordList->m_sString.find(",", s + 1);
+        
+        if (e-s >= 5 && e-s <= 7)
+		{
+			if (bonusWord) CC_SAFE_RELEASE_NULL(bonusWord);
+			bonusWord = new CCString();
+
+			bonusWord->m_sString.assign(dictWordList->m_sString.substr(s+1, e-s-1));
+            break;
+		}
+	}
+	
+	CCLabelTTF *bonusLbl = (CCLabelTTF*)this->getChildByTag(kTagBonusWord);
+    if (!bonusLbl)
+	{
+		int fontSize = 15;
+		if (CCDirector::sharedDirector()->getWinSizeInPixels().width > 320)	fontSize = 20;
+		
+        bonusLbl = CCLabelTTF::create(bonusWord->getCString(), FONT_SEGOECBD, fontSize);
+        bonusLbl->setPosition( ccp(screenSize.width*0.5f, screenSize.height*0.95f));
+        bonusLbl->setColor( ccc3(255, 255, 255));
+        this->addChild(bonusLbl, 7, kTagBonusWord);
+        
+        CCActionInterval* action = CCFadeOut::create(2.0f);
+        bonusLbl->runAction(CCRepeatForever::create(CCSequence::create(action, action->reverse(), NULL)));
+	}
+	else
+	{
+		bonusLbl->setString(bonusWord->getCString());
+	}
+}
+
+int PlayScreen::getRandomLettor()
+{
+	if (alphabets->length() < 1)
+	{
+		loadAlphabetDictionary(NULL);
+		return 65;
+	}
+	
+	int randNum = CCRANDOM_0_1() * alphabets->length();
+    int letterASCII = alphabets->getCString()[randNum];
+	
+	static int bonus = 0;
+    bonus++;
+	
+    if (bonus > CCRANDOM_0_1() * 10)
+	{
+        bonus = 0;
+		letterASCII = bonusWord->getCString()[(int)CCRANDOM_0_1() * bonusWord->length()];
+	}
+	return letterASCII;
 }
 
 void PlayScreen::showMessage(std::string msg, bool status)
@@ -803,10 +815,11 @@ void PlayScreen::showMessage(std::string msg, bool status)
 			this->removeChild((CCSprite*)_colWord->objectAtIndex(i), true);
 		}
 		
-		movedBallCounter = 0;
-		isFlicking = false;
+		movingBallCount = 0;
+		isAllowCollision = true;
+	
 		_colWord->removeAllObjects();
-		wordChar[0]='\0';
+		wordChar[0] = '\0';
 	}
 }
 
@@ -864,31 +877,27 @@ void PlayScreen::showCollectWordAnimation(CCNode* sender)
 
 void PlayScreen::showAnimatedScore(CCNode* sender)
 {
-	this->runAction(CCSequence::create(CCCallFuncN::create(this,callfuncN_selector(PlayScreen::addBonusPointsWord)), NULL ) );
+	this->runAction(CCSequence::create(CCCallFuncN::create(this,callfuncN_selector(PlayScreen::addBonusPointsWord)), NULL));
 
-	char sc[10];
-	sprintf(sc, "%d",cScore);
-	
-	
 	float bSizeW = ((CCSprite*)_colWord->lastObject())->boundingBox().size.width * 1.105;
 	
+	char sc[10] = {0};
+	sprintf(sc, "%d", m_score);
+
     CCLabelBMFont *lbl = CCLabelBMFont::create(sc, GlobalClass::getMessageFont().c_str());
-    lbl->setPosition( ccp(screenSize.width * 0.089f + _colWord->count() * bSizeW, screenSize.width * 0.052f));
+    lbl->setPosition( ccp(screenSize.width * 0.089f + _colWord->count() * bSizeW, screenSize.width*0.052f));
     lbl->setColor( ccc3(255, 255, 255));
     this->addChild(lbl,7);
     lbl->setScale(0.1);
 	
-	CCActionInterval*  fAction = CCFadeOut::create(1.0f);
-	CCActionInterval*  sAction = CCScaleTo::create(1.0f, 0.7f);
-	lbl->runAction( CCSequence::create(sAction, fAction, NULL));
+	lbl->runAction( CCSequence::create(CCScaleTo::create(1.0f, 0.7f), CCFadeOut::create(1.0f), NULL));
+    lbl->runAction( CCSequence::create(CCMoveTo::create(2.0f, CCPoint(screenSize.width * 0.089f + _colWord->count() * bSizeW, screenSize.height/2)), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::destroySprites)), NULL));
 
-	CCActionInterval*  mAction = CCMoveTo::create(2.0f, CCPoint(screenSize.width * 0.089f + _colWord->count() * bSizeW, screenSize.height/2));
-    lbl->runAction( CCSequence::create(mAction, CCCallFuncN::create(this,callfuncN_selector(PlayScreen::destroySprites)), NULL));
-
-	movedBallCounter = 0;
-	isFlicking = false;
+	movingBallCount = 0;
+	isAllowCollision = true;
+	
     _colWord->removeAllObjects();
-    wordChar[0]='\0';
+    wordChar[0] = '\0';
 }
 
 void PlayScreen::clickOnSubmitBtn(cocos2d::CCObject* sender)
@@ -899,157 +908,62 @@ void PlayScreen::clickOnSubmitBtn(cocos2d::CCObject* sender)
 	}
     else if (strlen(wordChar) == 1) 
 	{
-		resetKitePosition(this);
+		showKiteCollisionAnimation(this);
 		showMessage(TranslateScreen::sharedTranslate()->localeString(TEXT_PLAY_INCOORECT), false);
-		
 		return;
 	}
 	else 
 	{
 		GameSettings *gSettings = GameSettings::sharedSetting();
-		int wordCount;
-        unsigned int offset; // where it was found (or not (-1))
+		int	wordCount = strlen(wordChar);
         
-        if (strcmp(bonusPointWord.c_str(), wordChar) == 0)// (offset = bonusPointWord.find(wordChar, 0)) != string::npos)
+        if (strcmp(bonusWord->getCString(), wordChar) == 0)
         {
-            wordCount = strlen(wordChar);
-        
+			m_score = wordCount * 20;
+
             //play correct word sound
             if(gSettings->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_SUBMIT_CORRECT);
             
 			showMessage(TranslateScreen::sharedTranslate()->localeString(TEXT_PLAY_BONUS_POINT), true);
-            wordCount =(wordCount * 2) + 1;
-		
-			cScore = (wordCount-1) * 10;
 			showCollectWordAnimation(this);
 		}
         else
         {
             sprintf(wordChar,"%s,",wordChar);
-            wordCount = strlen(wordChar);
-            
-            for (int i = wordCount; i >= 0; i--) {
-                wordChar[i+1] = wordChar[i];
-            }
-            wordChar[0]=',';
-            
-            if (strlen(wordList.c_str()) > 0) 
+			wordChar[wordCount] = ',';
+			wordChar[wordCount+1] = '\0';
+		
+            if (dictWordList->length() > 0)
             {
-                
-                if ((offset = wordList.find(wordChar, 0)) != std::string::npos)  // arg 2 (0) specifies the offset from where to begin seach
+                if (dictWordList->m_sString.find(wordChar, 0) != std::string::npos)
                 {
+					m_score = wordCount * 10;
+
                     //play correct word sound
                     if(gSettings->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_SUBMIT_CORRECT);
 				
-					cScore = (wordCount-1) * 10;
 					showCollectWordAnimation(this);
                 }
                 else
                 {
                     showMessage(TranslateScreen::sharedTranslate()->localeString(TEXT_PLAY_INCOORECT), false);
-                    resetKitePosition(this);
+                    showKiteCollisionAnimation(this);
                     return;
                 }
             }
-            else {
-                getAllWordFromDictionary(this);
+            else
+			{
+                loadAlphabetDictionary(this);
             }
         }
             
-		char scoarr[20];
-		gSettings->setScore(gSettings->getScore() + (wordCount-1) * 10);
-		sprintf(scoarr,"%d",gSettings->getScore());
-		CCLabelBMFont *scoreLabel = (CCLabelBMFont *)this->getChildByTag(kTagSpriteScore);
+		char scoarr[20] = {0};
+		gSettings->setScore(gSettings->getScore() + m_score);
+		sprintf(scoarr, "%d", gSettings->getScore());
+	
+		CCLabelBMFont *scoreLabel = (CCLabelBMFont *)this->getChildByTag(kTagScores);
 		scoreLabel->setString(scoarr);    
     }
-}
-
-void PlayScreen::getAllAlpha(CCNode* sender)
-{
-	//load all word for select language fron its dictionary string
-	char lanName[30] = {0};
-	sprintf(lanName, "%s_Alp.txt", GlobalClass::getCurrentLanguageName().c_str());
-	std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathFromRelativeFile("", lanName);
-		
-	CCString *pData = CCString::createWithContentsOfFile(CCFileUtils::sharedFileUtils()->fullPathForFilename(lanName).c_str());
-	alphabets = new CCString(*pData);
-}
-
-void PlayScreen::getAllWordFromDictionary(CCNode* sender)
-{
-	//load all word for select language fron its dictionary string
-	char lanName[30] = {0};
-	sprintf(lanName, "%s.txt",GlobalClass::getCurrentLanguageName().c_str());
-
-	unsigned long size = 0;
-    unsigned char* pData = 0;
-    pData = CCFileUtils::sharedFileUtils()->getFileData(CCFileUtils::sharedFileUtils()->fullPathForFilename(lanName).c_str(), "rb", &size);
-	wordList = (const char*)pData;
-    CC_SAFE_DELETE_ARRAY(pData);
-}
-
-int PlayScreen::getRandomLettor()
-{
-	int randNum = (int)(rand() % alphabets->length());
-	
-    int letterASCII = 65;
-    letterASCII = alphabets->getCString()[randNum];
-	
-	static int bonus = 0;
-    bonus++;
-	
-    if (bonus == rand()%20)
-	{
-        bonus = 0;
-		letterASCII = (int)bonusPointWord.at((int)(rand() % strlen(bonusPointWord.c_str())));
-	}
-	
-	CCLOG("picked letter is %d", letterASCII);
-    return letterASCII;     
-}
-
-void PlayScreen::addBonusPointsWord(CCNode * sender)
-{
-    CCLabelTTF *bonusLbl = (CCLabelTTF*)this->getChildByTag(kTagBonusPointWord);
-    if (!bonusLbl) 
-	{
-		int fontSize = 15;
-		if (CCDirector::sharedDirector()->getWinSizeInPixels().width > 320)	fontSize = 20;
-	
-        bonusLbl = CCLabelTTF::create("", FONT_SEGOECBD, fontSize);
-        bonusLbl->setPosition( ccp(screenSize.width * 0.50f, screenSize.height * 0.95f));
-        bonusLbl->setColor( ccc3(255, 255, 255));
-        this->addChild(bonusLbl, 7, kTagBonusPointWord);
-        
-        CCActionInterval*  action = CCFadeOut::create(2.0f);
-        CCFiniteTimeAction*  rep = CCSequence::create(action, action->reverse(), NULL);
-        bonusLbl->runAction(CCRepeatForever::create((CCActionInterval*)rep));
-    }
-    bonusPointWord = "";
-	
-    int wordLen = strlen(wordList.c_str());
-	if (wordLen <= 0) return;
-	
-    srand((unsigned int)(time(NULL))+wordLen);
-    while (true)
-	{
-        int sPos = rand() % wordLen;
-        int s = wordList.find(",", sPos);
-        int e = wordList.find(",", s + 1);
-        
-        if (e - s >= 5 && e - s <= 7) {
-            char newWord[8] = {0};
-            
-            for (int i = s+1, j = 0; i < e; i++, j++) {
-                newWord[j] = wordList.at(i);
-            }
-            
-            bonusPointWord = newWord;
-            break;
-        }                         
-        
-    }
-    bonusLbl->setString(bonusPointWord.c_str());
 }
 
 void PlayScreen::moveBubble(CCPoint source, CCPoint destination , CCNode* sender)
@@ -1069,13 +983,9 @@ void PlayScreen::moveBubble(CCPoint source, CCPoint destination , CCNode* sender
 
 void PlayScreen::moveBubbleCompleted(CCNode* sender)
 {
-    if (movedBallCounter > 0) {
-        movedBallCounter--;
-    }
+    if (movingBallCount > 0) movingBallCount--;
 	
-    if (movedBallCounter == 0) {
-        isFlicking = false;
-    }
+    if (movingBallCount == 0) isAllowCollision = true;
 }
 
 void PlayScreen::pauseGame()
@@ -1198,7 +1108,6 @@ void PlayScreen::destroyBalls(CCNode* pSender)
     if (pSender == optionalBubble)
 	{
         optionalBubble = NULL;
-        optionalLabel = NULL;
         unschedule(schedule_selector(PlayScreen::changeOptionalBallChar));
 	}
     
