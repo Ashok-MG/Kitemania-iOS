@@ -78,7 +78,7 @@ void LoadingScreen::initScene(CCObject *pSender)
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(KITEMANIA_LOGO);
 
 	//-------Add loading label
-	CCLabelBMFont * ldgLabel = CCLabelBMFont::create(TranslateScreen::sharedTranslate()->localeString(TEXT_LOADING), GlobalClass::getMenuFont().c_str());
+	CCLabelBMFont * ldgLabel = CCLabelBMFont::create("Loading...", GlobalClass::getMenuFont().c_str());
 	ldgLabel->setPosition(GlobalClass::getCenterPointOfSize(screenSize));
 	this->addChild(ldgLabel,1);
 	
@@ -90,7 +90,7 @@ void LoadingScreen::loadGameAssestes(CCNode* sender)
     Music::sharedMusic()->preLoadBackgroundMusic();
 	
 	GameSettings *gSettings = GameSettings::sharedSetting();
-//    if(!gSettings->isStorageSet())
+    if(!gSettings->isStorageSet())
 	{
 		// Set the default classic mode
         gSettings->setMode(kTagClassic);
@@ -99,25 +99,25 @@ void LoadingScreen::loadGameAssestes(CCNode* sender)
         gSettings->setMusic(kTagSoundOn);
     
 		// Set the default language same as device if game not support device lang then we set english is default language
-        switch (CCApplication::sharedApplication()->getCurrentLanguage())
+		switch (CCApplication::sharedApplication()->getCurrentLanguage())
 		{
-            case kLanguageEnglish:		gSettings->setLanguageType(kTagEnglish); break;
-            case kLanguageSpanish:		gSettings->setLanguageType(kTagSpanish); break;
-            case kLanguagePortuguese:	gSettings->setLanguageType(kTagPortuguese); break;
-            case kLanguageFrench:		gSettings->setLanguageType(kTagFrench); break;
-            case kLanguageGerman:		gSettings->setLanguageType(kTagGerman); break;
+			case kLanguageEnglish:		gSettings->setLanguageType(kTagEnglish); break;
+			case kLanguageSpanish:		gSettings->setLanguageType(kTagSpanish); break;
+			case kLanguagePortuguese:	gSettings->setLanguageType(kTagPortuguese); break;
+			case kLanguageFrench:		gSettings->setLanguageType(kTagFrench); break;
+			case kLanguageGerman:		gSettings->setLanguageType(kTagGerman); break;
 			default:					gSettings->setLanguageType(kTagEnglish); break;
-		}	
+		}
 	}
-		
+
 	// Set the default game score
 	gSettings->setScore(0);
 	gSettings->setTempData();
 //	Settings::loadFontFiles();
 	
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_MENU, IMAGE_PNG_MENU);
-	CCTextureCache::sharedTextureCache()->purgeSharedTextureCache();
-
+//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_MENU, IMAGE_PNG_MENU);
+//	CCTextureCache::sharedTextureCache()->purgeSharedTextureCache();
+//
 	this->runAction( CCSequence::create(CCDelayTime::create(0.1), CCCallFuncN::create(this, callfuncN_selector(LoadingScreen::startGame)), NULL));
 }
 

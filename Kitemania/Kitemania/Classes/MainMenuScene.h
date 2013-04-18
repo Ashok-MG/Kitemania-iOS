@@ -36,7 +36,6 @@ class MainMenuScene : public CCLayerColor
 		virtual void keyBackClicked();
 
 		void addGameMenuMethod();	
-		void enableAllMenus(CCObject* sender);
 		
 		void playGameMenuMethod(CCObject* sender);
 		void langMenuMethod(CCObject* sender);

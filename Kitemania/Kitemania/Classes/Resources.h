@@ -64,6 +64,12 @@ enum
 #define MENU_MENU_UP					"menu_up.png"
 #define MENU_MENU_DOWN					"menu_down.png"
 
+//LEADERBOARD ASSETS
+#define LEADER_PLAY_UP					"lplay_up.png"
+#define LEADER_PLAY_DOWN				"lplay_down.png"
+#define LEADER_MENU_UP					"lmenu_up.png"
+#define LEADER_MENU_DOWN				"lmenu_down.png"
+
 //GAME ASSETS
 #define PLAY_BG_IMAGE                   "play_bg.png"
 #define BALL_IMAGE						"ball.png"

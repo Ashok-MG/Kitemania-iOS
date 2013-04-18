@@ -125,15 +125,16 @@ void GameOverScreen::initScene(CCNode* sender)
     }    
 	
 	//----------Back to Main menu
-	CCMenuItemSprite *mItmBack = CCMenuItemSprite::create(CCSprite::create(MENU_MENU_UP), CCSprite::create(MENU_MENU_DOWN), this, menu_selector(GameOverScreen::backToMainMenu));
+	CCMenuItemSprite *mItmBack = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(LEADER_MENU_UP), CCSprite::createWithSpriteFrameName(LEADER_MENU_DOWN), this, menu_selector(GameOverScreen::backToMainMenu));
 	mItmBack->setScale(GlobalClass::getScaleBySprite());
 
 	//------Back to play
-	CCMenuItemSprite *mItmPlay = CCMenuItemSprite::create(CCSprite::create(MENU_PLAY_UP), CCSprite::create(MENU_PLAY_DOWN), this, menu_selector(GameOverScreen::backToPlay));
+	CCMenuItemSprite *mItmPlay = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(LEADER_PLAY_UP), CCSprite::createWithSpriteFrameName(LEADER_PLAY_DOWN), this, menu_selector(GameOverScreen::backToPlay));
 	mItmPlay->setScale(GlobalClass::getScaleBySprite());
 
     CCMenu *mMenus = CCMenu::create(mItmBack, mItmPlay, NULL);
 	mMenus->alignItemsHorizontallyWithPadding(screenSize.width * 0.42f);
+	mMenus->setPosition(ccp(screenSize.width * 0.5f, screenSize.height * 0.09f));
     this->addChild(mMenus, 1);
 
 	if (gSettings->getScore() > 0 )
@@ -141,9 +142,6 @@ void GameOverScreen::initScene(CCNode* sender)
 		addScoreBar(count+1,gSettings->getUserName(), gSettings->getScore(), " ", true); 
 		gSettings->setScore(0);
 		mMenus->setPosition(ccp(screenSize.width * 0.5f, screenSize.height * 0.045f));
-	}
-	else {
-		mMenus->setPosition(ccp(screenSize.width * 0.5f, screenSize.height * 0.09f));
 	}
 }
 

@@ -12,38 +12,48 @@
 #include "cocos2d.h"
 
 USING_NS_CC;
-    
+
+typedef enum {
+    kGameLevelBasic = 50,
+    kGameLevelBonus,
+    kGameLevelAdvance,
+} kTagGameLevel;
+
+typedef enum {
+    kStateGamePlay = 60,
+    kStateQuitMenu,
+    kStateShowScoreBoard,
+} kTagGameState;
+
+
 class  PlayScreen : public CCLayerColor
 {
     private:
+		CCSize screenSize;
+		kTagGameLevel m_GameLevel;
+		kTagGameState m_GameState;
+	
         CCArray *_leftKites;
 		CCArray *_colWord;
 		CCArray *_bubbles;
 		CCArray *_obstacles;
-	
-		CCSize screenSize;
 		
 		CCSprite *kite;
 		CCSprite *optionalBubble;
 	
+		CCString *dictWordList;
+		CCString *dictWord;
+		CCString *bonusWord;
+	
 		float m_time;
 		int m_score;
-	
-		int movingBallCount;
-        bool isAllowCollision;
-
-		CCString *alphabets;
-		CCString *dictWordList;
-        CCString *bonusWord;
-		CCString *collectedWords;
-
-		unsigned int ci;
-
-		char wordChar[20];
-//		int alphaCount, alphaListArray[500];
+		int mSbmtAnimatWat;
+		int dictWordSeq;
+		char wordChar[10];
 	
 		void loadAlphabetDictionary(CCNode* sender);
-
+	
+		void addObstacles(CCObject* pSender);
 		void addGameScores();
 		void addGameLife();
 		void addGameTimer();
@@ -60,38 +70,36 @@ class  PlayScreen : public CCLayerColor
 		void destroyObstacles(CCNode* pSender);
 		
 		void tick(float dt);
-		void autoKiteFall(CCNode* sender);
-		void showKiteCollisionAnimation(CCNode *sender);
-		void resetToKite(CCNode* sender);
-		void enableAllowCollision(CCNode* sender);
+		void showKiteCollisionResetAnimation(CCNode *sender);
+		void enableKiteFlying(CCNode* sender);
+
+		void addBonusPointsWord(CCObject *pSender);
+		void addDictWord(int minCharLen, int maxCharLen);
+		int getRandomLetter(bool isSequential);
+
+		void updateScores();
+		void lostGameLife(CCNode* sender);
+
+		virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
+		virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
+		virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
+
+		void pauseGame();
+		void resumeGame();
 
         void showMessage(std::string msg, bool status);
 		void showCollectWordAnimation(CCNode* sender);
 		void showAnimatedScore(CCNode* sender);
-		
 		void showScoreBoard(CCObject* sender);
-		
-        virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
-        virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
-		virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
 		
 		void moveBubble(CCPoint source, CCPoint destination, CCNode* sender);
 		void moveBubbleCompleted(CCNode* sender);
 		
-		virtual	void clickOnSubmitBtn(CCObject* sender);
-        
-        int getRandomLettor();
-        void pauseGame();
-        void resumeGame();
-        
+			void clickOnSubmitBtn(CCObject* sender);
         void clickOnYesButton(CCObject* sender);
         void clickOnNoButton(CCObject* sender);
         void clickOnCancelButton(CCObject* sender);
         
-        void addBonusPointsWord(CCNode * sender);
-		
-        int backButtonState;
-        const char *os;
 		
 	public:
 		PlayScreen();

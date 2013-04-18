@@ -209,43 +209,25 @@ void MainMenuScene::addGameMenuMethod()
 	CCMenu *gameMenu = CCMenu::create(mItmPlay, mItmLang, mItmMode, mItmSound, mItmHelp, mItmExit, NULL);
 	gameMenu->setPosition( CCPointZero);
 	this->addChild(gameMenu, 1, kTagMainMenu);
-	CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(false);
 
     //run action-------------------
     CCActionInterval* move = CCMoveBy::create(2, CCPointMake(screenSize.width ,0));
-	CCActionInterval* move_ease_inout1 = CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f);
-    CCFiniteTimeAction* seq1 = CCSequence::create( move_ease_inout1, NULL);
-    mItmPlay->runAction((CCActionInterval*)seq1);
+    mItmPlay->runAction(CCSequence::create( CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f), NULL));
 	
 	move = CCMoveBy::create(2.2, CCPointMake(screenSize.width ,0));
-	move_ease_inout1 = CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f);
-    seq1 = CCSequence::create( move_ease_inout1, NULL);
-    mItmLang->runAction((CCActionInterval*)seq1);
+    mItmLang->runAction(CCSequence::create( CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f), NULL));
 	
 	move = CCMoveBy::create(2.4, CCPointMake(screenSize.width ,0));
-	move_ease_inout1 = CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f);
-    seq1 = CCSequence::create( move_ease_inout1, NULL);
-    mItmMode->runAction((CCActionInterval*)seq1);
+    mItmMode->runAction(CCSequence::create( CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f), NULL));
 	
 	move = CCMoveBy::create(2.6, CCPointMake(screenSize.width ,0));
-	move_ease_inout1 = CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f);
-    seq1 = CCSequence::create( move_ease_inout1, NULL);
-    mItmSound->runAction((CCActionInterval*)seq1);
+    mItmSound->runAction(CCSequence::create( CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f), NULL));
 	
 	move = CCMoveBy::create(2.8, CCPointMake(screenSize.width ,0));
-    move_ease_inout1 = CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f);
-    seq1 = CCSequence::create( move_ease_inout1, NULL);
-    mItmHelp->runAction((CCActionInterval*)seq1);
+    mItmHelp->runAction(CCSequence::create( CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f), NULL));
 	
 	move = CCMoveBy::create(3, CCPointMake(screenSize.width ,0));
-	move_ease_inout1 = CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f);
-    seq1 = CCSequence::create( move_ease_inout1, CCCallFuncN::create(this,callfuncN_selector(MainMenuScene::enableAllMenus)), NULL);
-    mItmExit->runAction((CCActionInterval*)seq1);
-}
-
-void MainMenuScene::enableAllMenus(cocos2d::CCObject* sender)
-{
-	CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(true);
+    mItmExit->runAction(CCSequence::create( CCEaseElasticInOut::create((CCActionInterval*)(move->copy()->autorelease()), 0.5f), NULL));
 }
 
 //PLAY GAME MENU METHOD
