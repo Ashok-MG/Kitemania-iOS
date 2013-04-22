@@ -42,11 +42,10 @@ enum
 #define BACK_UP							"back_up.png"
 #define BACK_DOWN						"back_down.png"
 #define SUBMIT_UP						"submit_up.png"
-#define SUBMIT_DOWN						"submit_over.png"
+#define SUBMIT_DOWN						"submit_down.png"
 #define SUBMIT_WRONG					"submit_red.png"
 #define SUBMIT_RIGHT					"submit_green.png"
-#define BTN_ON_UP						"button_up.png"
-#define BTN_ON_DOWN						"button_down.png"
+#define PAUSE_UP						"pause_up.png"
 
 //MENU ASSETS
 #define MENU_PLAY_UP					"play_up.png"
@@ -73,13 +72,25 @@ enum
 //GAME ASSETS
 #define PLAY_BG_IMAGE                   "play_bg.png"
 #define BALL_IMAGE						"ball.png"
+#define POWER_BALL						"ball2.png"
 #define KITE_WALL						"kite_wall.png"
+#define TOP_BAR							"top_Bar.png"
 #define RED_KITE						"kRed.png"
-#define GAME_KITE						"kLive.png"
+#define GREEN_KITE						"kGreen.png"
+#define YELLOW_KITE						"kYellow.png"
+#define PINK_KITE						"kPink.png"
+#define RED_LIVE						"kRedLive.png"
+#define GREEN_LIVE						"kGreenLive.png"
+#define YELLOW_LIVE						"kYellowLive.png"
+#define PINK_LIVE						"kPinkLive.png"
 #define HOT_BALLON						"Hot_Air_Balloon.png"
-#define SCROE_PANEL						"scorepanel.png"
 #define SCORE_HEAD_BAR					"blue_bar.png"
 #define SCORE_DATA_BAR					"leaderboard_bar.png"
+
+//MESSAGE PROMPT ASSETS
+#define SCROE_PANEL						"score_panel.png"
+#define BTN_ON_UP						"ok_btn_up.png"
+#define BTN_ON_DOWN						"ok_btn_down.png"
 
 //SOUNDS
 #define SFX_BIRD_HIT					"HIT.m4a"
@@ -93,17 +104,19 @@ enum
 //KM RESOURCE PLIST
 #define IMAGE_PLIST_MENU                "Menu_Ass.plist"
 #define IMAGE_PLIST_GAME                "Game_Ass.plist"
-#define IMAGE_PLIST_LIGHT               "lighting.plist"
 #define IMAGE_PLIST_OVER				"GameOver_Ass.plist"
+#define IMAGE_PLIST_PROMPT				"prompt_Ass.plist"
 #define IMAGE_PLIST_CIRCEL				"circle.plist"
 #define IMAGE_PLIST_EFFECT				"effect.plist"
+#define IMAGE_PLIST_LIGHT               "lighting.plist"
 
 //KM RESOURCE PNG
 #define IMAGE_PNG_MENU 					"Menu_Ass.png"
 #define IMAGE_PNG_GAME 					"Game_Ass.png"
-#define IMAGE_PNG_LIGHT					"lighting.png"
 #define IMAGE_PNG_OVER					"GameOver_Ass.png"
+#define IMAGE_PNG_PROMPT				"prompt_Ass.png"
 #define IMAGE_PNG_CIRCEL				"circle.png"
 #define IMAGE_PNG_EFFECT				"effect.png"
+#define IMAGE_PNG_LIGHT					"lighting.png"
 
 #endif

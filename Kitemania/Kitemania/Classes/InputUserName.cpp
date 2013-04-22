@@ -101,7 +101,7 @@ void InputUserName::initScene(CCNode* sender)
 	this->addChild(topScrLbl, 1);
         
 	//-------Add Sscorepanel
-	CCSprite *scorepanel = CCSprite::create(SCROE_PANEL);
+	CCSprite *scorepanel = CCSprite::createWithSpriteFrameName(SCROE_PANEL);
 	scorepanel->setScale(GlobalClass::getScaleBySprite());
 	scorepanel->setPosition( ccp(screenSize.width*0.5, screenSize.height*0.56f));
 	this->addChild(scorepanel, 10, kTagScorePanel);
@@ -130,7 +130,7 @@ void InputUserName::initScene(CCNode* sender)
     scorepanel->addChild(pointsScored, 2);
     
     //------Add submit 
-	CCMenuItemSprite *submitName = CCMenuItemSprite::create(CCSprite::create(BTN_ON_UP), CCSprite::create(BTN_ON_DOWN), this, menu_selector(InputUserName::submitNameToGameOver));
+	CCMenuItemSprite *submitName = CCMenuItemSprite::create(CCSprite::createWithSpriteFrameName(BTN_ON_UP), CCSprite::createWithSpriteFrameName(BTN_ON_DOWN), this, menu_selector(InputUserName::submitNameToGameOver));
 	
 	CCLabelTTF * label = CCLabelTTF::create(TranslateScreen::sharedTranslate()->localeString(TEXT_IU_OK), FONT_SEGOECBD, GlobalClass::getScaledFont(30));
 	label->setPosition( ccp(submitName->getContentSize().width * 0.5f, submitName->getContentSize().height * 0.5f));

@@ -115,8 +115,8 @@ void LoadingScreen::loadGameAssestes(CCNode* sender)
 	gSettings->setTempData();
 //	Settings::loadFontFiles();
 	
-//	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_MENU, IMAGE_PNG_MENU);
-//	CCTextureCache::sharedTextureCache()->purgeSharedTextureCache();
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile(IMAGE_PLIST_PROMPT, IMAGE_PNG_PROMPT);
+	CCTextureCache::sharedTextureCache()->purgeSharedTextureCache();
 //
 	this->runAction( CCSequence::create(CCDelayTime::create(0.1), CCCallFuncN::create(this, callfuncN_selector(LoadingScreen::startGame)), NULL));
 }

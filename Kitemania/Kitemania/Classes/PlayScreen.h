@@ -36,6 +36,7 @@ class  PlayScreen : public CCLayerColor
         CCArray *_leftKites;
 		CCArray *_colWord;
 		CCArray *_bubbles;
+		CCArray *_pBubbles;
 		CCArray *_obstacles;
 		
 		CCSprite *kite;
@@ -51,6 +52,9 @@ class  PlayScreen : public CCLayerColor
 		int dictWordSeq;
 		char wordChar[10];
 	
+		int  charCompMoved;
+		bool isEnableFlicker;
+	
 		void loadAlphabetDictionary(CCNode* sender);
 	
 		void addObstacles(CCObject* pSender);
@@ -60,6 +64,7 @@ class  PlayScreen : public CCLayerColor
 		void changeOptionalBallChar(float t);
 
 		void addMoveBalls(float t);
+		void addPowerBalls(float t);
 		void addMoveClouds(float t);
 		void addMoveBirds(float t);
 		void addThunderbolt(float t);
@@ -72,6 +77,8 @@ class  PlayScreen : public CCLayerColor
 		void tick(float dt);
 		void showKiteCollisionResetAnimation(CCNode *sender);
 		void enableKiteFlying(CCNode* sender);
+		void ballCompletelyMoved(CCNode* sender);
+		void moveBubble(CCPoint source, CCPoint destination, CCNode* sender);
 
 		void addBonusPointsWord(CCObject *pSender);
 		void addDictWord(int minCharLen, int maxCharLen);
@@ -79,6 +86,9 @@ class  PlayScreen : public CCLayerColor
 
 		void updateScores();
 		void lostGameLife(CCNode* sender);
+
+		void clickOnSubmitBtn(CCObject* sender);
+		void canAbleToSubmit(CCObject *pSender);
 
 		virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
 		virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
@@ -92,15 +102,10 @@ class  PlayScreen : public CCLayerColor
 		void showAnimatedScore(CCNode* sender);
 		void showScoreBoard(CCObject* sender);
 		
-		void moveBubble(CCPoint source, CCPoint destination, CCNode* sender);
-		void moveBubbleCompleted(CCNode* sender);
-		
-			void clickOnSubmitBtn(CCObject* sender);
         void clickOnYesButton(CCObject* sender);
         void clickOnNoButton(CCObject* sender);
         void clickOnCancelButton(CCObject* sender);
         
-		
 	public:
 		PlayScreen();
 		~PlayScreen();

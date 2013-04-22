@@ -30,7 +30,6 @@ class GlobalClass
 		
 		static std::string getCurrentLanguageName();
 		static std::string AMLocalization(std::string key, std::string dValue);
-		static void itoa(int n, char s[]);
 };
 
 #endif	//	__KiteMania_GlobalClass_h__

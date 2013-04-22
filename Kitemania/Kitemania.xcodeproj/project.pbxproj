@@ -222,34 +222,10 @@
 		AB266A9D171693A8007930EB /* GlobalClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266A95171693A8007930EB /* GlobalClass.cpp */; };
 		AB266A9E171693A8007930EB /* LoadingScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266A97171693A8007930EB /* LoadingScreen.cpp */; };
 		AB266A9F171693A8007930EB /* TranslateScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266A9A171693A8007930EB /* TranslateScreen.cpp */; };
-		AB266AB417169426007930EB /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA117169425007930EB /* background.png */; };
-		AB266AB517169426007930EB /* button_down.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA217169425007930EB /* button_down.png */; };
-		AB266AB617169426007930EB /* button_up.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA317169425007930EB /* button_up.png */; };
-		AB266AB717169426007930EB /* circle.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA417169425007930EB /* circle.plist */; };
-		AB266AB817169426007930EB /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA517169425007930EB /* circle.png */; };
-		AB266AB917169426007930EB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA617169425007930EB /* Default.png */; };
-		AB266ABA17169426007930EB /* effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA717169425007930EB /* effect.plist */; };
-		AB266ABB17169426007930EB /* effect.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA817169425007930EB /* effect.png */; };
-		AB266ABC17169426007930EB /* Game_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB266AA917169425007930EB /* Game_Ass.plist */; };
-		AB266ABD17169426007930EB /* Game_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AAA17169425007930EB /* Game_Ass.png */; };
-		AB266ABE17169426007930EB /* GameOver_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB266AAB17169425007930EB /* GameOver_Ass.plist */; };
-		AB266ABF17169426007930EB /* GameOver_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AAC17169425007930EB /* GameOver_Ass.png */; };
-		AB266AC017169426007930EB /* kitemania.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AAD17169425007930EB /* kitemania.png */; };
-		AB266AC117169426007930EB /* lighting.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB266AAE17169426007930EB /* lighting.plist */; };
-		AB266AC217169426007930EB /* lighting.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AAF17169426007930EB /* lighting.png */; };
-		AB266AC317169426007930EB /* Menu_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB266AB017169426007930EB /* Menu_Ass.plist */; };
-		AB266AC417169426007930EB /* Menu_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AB117169426007930EB /* Menu_Ass.png */; };
-		AB266AC517169426007930EB /* play_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AB217169426007930EB /* play_bg.png */; };
-		AB266AC617169426007930EB /* scorepanel.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266AB317169426007930EB /* scorepanel.png */; };
-		AB266AD217169436007930EB /* English_Alp.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266AC817169436007930EB /* English_Alp.txt */; };
 		AB266AD317169436007930EB /* English.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266AC917169436007930EB /* English.txt */; };
-		AB266AD417169436007930EB /* French_Alp.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ACA17169436007930EB /* French_Alp.txt */; };
 		AB266AD517169436007930EB /* French.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ACB17169436007930EB /* French.txt */; };
-		AB266AD617169436007930EB /* German_Alp.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ACC17169436007930EB /* German_Alp.txt */; };
 		AB266AD717169436007930EB /* German.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ACD17169436007930EB /* German.txt */; };
-		AB266AD817169436007930EB /* Portuguese_Alp.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ACE17169436007930EB /* Portuguese_Alp.txt */; };
 		AB266AD917169436007930EB /* Portuguese.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ACF17169436007930EB /* Portuguese.txt */; };
-		AB266ADA17169436007930EB /* Spanish_Alp.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266AD017169436007930EB /* Spanish_Alp.txt */; };
 		AB266ADB17169436007930EB /* Spanish.txt in Resources */ = {isa = PBXBuildFile; fileRef = AB266AD117169436007930EB /* Spanish.txt */; };
 		AB266AFE17169446007930EB /* Segoe16_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AB266ADD17169445007930EB /* Segoe16_0.png */; };
 		AB266AFF17169446007930EB /* Segoe16.fnt in Resources */ = {isa = PBXBuildFile; fileRef = AB266ADE17169445007930EB /* Segoe16.fnt */; };
@@ -295,6 +271,26 @@
 		AB266B411716D19A007930EB /* PlayScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB266B3F1716D19A007930EB /* PlayScreen.cpp */; };
 		AB4640EA1717E28F009DE6CD /* InputUserName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB4640E81717E28F009DE6CD /* InputUserName.cpp */; };
 		AB4640ED1717EB77009DE6CD /* GameOverScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB4640EB1717EB76009DE6CD /* GameOverScreen.cpp */; };
+		AB49744517226EFA00403F8D /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743117226EFA00403F8D /* background.png */; };
+		AB49744617226EFA00403F8D /* circle.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49743217226EFA00403F8D /* circle.plist */; };
+		AB49744717226EFA00403F8D /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743317226EFA00403F8D /* circle.png */; };
+		AB49744817226EFA00403F8D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743417226EFA00403F8D /* Default.png */; };
+		AB49744917226EFA00403F8D /* effect.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49743517226EFA00403F8D /* effect.plist */; };
+		AB49744A17226EFA00403F8D /* effect.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743617226EFA00403F8D /* effect.png */; };
+		AB49744B17226EFA00403F8D /* Game_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49743717226EFA00403F8D /* Game_Ass.plist */; };
+		AB49744C17226EFA00403F8D /* Game_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743817226EFA00403F8D /* Game_Ass.png */; };
+		AB49744D17226EFA00403F8D /* GameOver_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49743917226EFA00403F8D /* GameOver_Ass.plist */; };
+		AB49744E17226EFA00403F8D /* GameOver_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743A17226EFA00403F8D /* GameOver_Ass.png */; };
+		AB49744F17226EFA00403F8D /* kite_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743B17226EFA00403F8D /* kite_wall.png */; };
+		AB49745017226EFA00403F8D /* kitemania.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743C17226EFA00403F8D /* kitemania.png */; };
+		AB49745117226EFA00403F8D /* lighting.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49743D17226EFA00403F8D /* lighting.plist */; };
+		AB49745217226EFA00403F8D /* lighting.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49743E17226EFA00403F8D /* lighting.png */; };
+		AB49745317226EFA00403F8D /* Menu_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49743F17226EFA00403F8D /* Menu_Ass.plist */; };
+		AB49745417226EFA00403F8D /* Menu_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49744017226EFA00403F8D /* Menu_Ass.png */; };
+		AB49745517226EFA00403F8D /* play_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49744117226EFA00403F8D /* play_bg.png */; };
+		AB49745617226EFA00403F8D /* prompt_Ass.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB49744217226EFA00403F8D /* prompt_Ass.plist */; };
+		AB49745717226EFA00403F8D /* prompt_Ass.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49744317226EFA00403F8D /* prompt_Ass.png */; };
+		AB49745817226EFA00403F8D /* top_Bar.png in Resources */ = {isa = PBXBuildFile; fileRef = AB49744417226EFA00403F8D /* top_Bar.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -773,34 +769,10 @@
 		AB266A99171693A8007930EB /* Resources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = Classes/Resources.h; sourceTree = "<group>"; };
 		AB266A9A171693A8007930EB /* TranslateScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TranslateScreen.cpp; path = Classes/TranslateScreen.cpp; sourceTree = "<group>"; };
 		AB266A9B171693A8007930EB /* TranslateScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TranslateScreen.h; path = Classes/TranslateScreen.h; sourceTree = "<group>"; };
-		AB266AA117169425007930EB /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = "Art Assets/background.png"; sourceTree = "<group>"; };
-		AB266AA217169425007930EB /* button_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_down.png; path = "Art Assets/button_down.png"; sourceTree = "<group>"; };
-		AB266AA317169425007930EB /* button_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_up.png; path = "Art Assets/button_up.png"; sourceTree = "<group>"; };
-		AB266AA417169425007930EB /* circle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = circle.plist; path = "Art Assets/circle.plist"; sourceTree = "<group>"; };
-		AB266AA517169425007930EB /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle.png; path = "Art Assets/circle.png"; sourceTree = "<group>"; };
-		AB266AA617169425007930EB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = "Art Assets/Default.png"; sourceTree = "<group>"; };
-		AB266AA717169425007930EB /* effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = effect.plist; path = "Art Assets/effect.plist"; sourceTree = "<group>"; };
-		AB266AA817169425007930EB /* effect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effect.png; path = "Art Assets/effect.png"; sourceTree = "<group>"; };
-		AB266AA917169425007930EB /* Game_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Game_Ass.plist; path = "Art Assets/Game_Ass.plist"; sourceTree = "<group>"; };
-		AB266AAA17169425007930EB /* Game_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Game_Ass.png; path = "Art Assets/Game_Ass.png"; sourceTree = "<group>"; };
-		AB266AAB17169425007930EB /* GameOver_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GameOver_Ass.plist; path = "Art Assets/GameOver_Ass.plist"; sourceTree = "<group>"; };
-		AB266AAC17169425007930EB /* GameOver_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GameOver_Ass.png; path = "Art Assets/GameOver_Ass.png"; sourceTree = "<group>"; };
-		AB266AAD17169425007930EB /* kitemania.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kitemania.png; path = "Art Assets/kitemania.png"; sourceTree = "<group>"; };
-		AB266AAE17169426007930EB /* lighting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = lighting.plist; path = "Art Assets/lighting.plist"; sourceTree = "<group>"; };
-		AB266AAF17169426007930EB /* lighting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lighting.png; path = "Art Assets/lighting.png"; sourceTree = "<group>"; };
-		AB266AB017169426007930EB /* Menu_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Menu_Ass.plist; path = "Art Assets/Menu_Ass.plist"; sourceTree = "<group>"; };
-		AB266AB117169426007930EB /* Menu_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Menu_Ass.png; path = "Art Assets/Menu_Ass.png"; sourceTree = "<group>"; };
-		AB266AB217169426007930EB /* play_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_bg.png; path = "Art Assets/play_bg.png"; sourceTree = "<group>"; };
-		AB266AB317169426007930EB /* scorepanel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = scorepanel.png; path = "Art Assets/scorepanel.png"; sourceTree = "<group>"; };
-		AB266AC817169436007930EB /* English_Alp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = English_Alp.txt; path = AlphaDist/English_Alp.txt; sourceTree = "<group>"; };
 		AB266AC917169436007930EB /* English.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = English.txt; path = AlphaDist/English.txt; sourceTree = "<group>"; };
-		AB266ACA17169436007930EB /* French_Alp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = French_Alp.txt; path = AlphaDist/French_Alp.txt; sourceTree = "<group>"; };
 		AB266ACB17169436007930EB /* French.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = French.txt; path = AlphaDist/French.txt; sourceTree = "<group>"; };
-		AB266ACC17169436007930EB /* German_Alp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = German_Alp.txt; path = AlphaDist/German_Alp.txt; sourceTree = "<group>"; };
 		AB266ACD17169436007930EB /* German.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = German.txt; path = AlphaDist/German.txt; sourceTree = "<group>"; };
-		AB266ACE17169436007930EB /* Portuguese_Alp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Portuguese_Alp.txt; path = AlphaDist/Portuguese_Alp.txt; sourceTree = "<group>"; };
 		AB266ACF17169436007930EB /* Portuguese.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Portuguese.txt; path = AlphaDist/Portuguese.txt; sourceTree = "<group>"; };
-		AB266AD017169436007930EB /* Spanish_Alp.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Spanish_Alp.txt; path = AlphaDist/Spanish_Alp.txt; sourceTree = "<group>"; };
 		AB266AD117169436007930EB /* Spanish.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Spanish.txt; path = AlphaDist/Spanish.txt; sourceTree = "<group>"; };
 		AB266ADD17169445007930EB /* Segoe16_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Segoe16_0.png; path = Fonts/Segoe16_0.png; sourceTree = "<group>"; };
 		AB266ADE17169445007930EB /* Segoe16.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Segoe16.fnt; path = Fonts/Segoe16.fnt; sourceTree = "<group>"; };
@@ -850,6 +822,26 @@
 		AB4640E91717E28F009DE6CD /* InputUserName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputUserName.h; path = Classes/InputUserName.h; sourceTree = "<group>"; };
 		AB4640EB1717EB76009DE6CD /* GameOverScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameOverScreen.cpp; path = Classes/GameOverScreen.cpp; sourceTree = "<group>"; };
 		AB4640EC1717EB76009DE6CD /* GameOverScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverScreen.h; path = Classes/GameOverScreen.h; sourceTree = "<group>"; };
+		AB49743117226EFA00403F8D /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = ArtAssets/background.png; sourceTree = "<group>"; };
+		AB49743217226EFA00403F8D /* circle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = circle.plist; path = ArtAssets/circle.plist; sourceTree = "<group>"; };
+		AB49743317226EFA00403F8D /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle.png; path = ArtAssets/circle.png; sourceTree = "<group>"; };
+		AB49743417226EFA00403F8D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ArtAssets/Default.png; sourceTree = "<group>"; };
+		AB49743517226EFA00403F8D /* effect.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = effect.plist; path = ArtAssets/effect.plist; sourceTree = "<group>"; };
+		AB49743617226EFA00403F8D /* effect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effect.png; path = ArtAssets/effect.png; sourceTree = "<group>"; };
+		AB49743717226EFA00403F8D /* Game_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Game_Ass.plist; path = ArtAssets/Game_Ass.plist; sourceTree = "<group>"; };
+		AB49743817226EFA00403F8D /* Game_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Game_Ass.png; path = ArtAssets/Game_Ass.png; sourceTree = "<group>"; };
+		AB49743917226EFA00403F8D /* GameOver_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GameOver_Ass.plist; path = ArtAssets/GameOver_Ass.plist; sourceTree = "<group>"; };
+		AB49743A17226EFA00403F8D /* GameOver_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GameOver_Ass.png; path = ArtAssets/GameOver_Ass.png; sourceTree = "<group>"; };
+		AB49743B17226EFA00403F8D /* kite_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kite_wall.png; path = ArtAssets/kite_wall.png; sourceTree = "<group>"; };
+		AB49743C17226EFA00403F8D /* kitemania.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kitemania.png; path = ArtAssets/kitemania.png; sourceTree = "<group>"; };
+		AB49743D17226EFA00403F8D /* lighting.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = lighting.plist; path = ArtAssets/lighting.plist; sourceTree = "<group>"; };
+		AB49743E17226EFA00403F8D /* lighting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lighting.png; path = ArtAssets/lighting.png; sourceTree = "<group>"; };
+		AB49743F17226EFA00403F8D /* Menu_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Menu_Ass.plist; path = ArtAssets/Menu_Ass.plist; sourceTree = "<group>"; };
+		AB49744017226EFA00403F8D /* Menu_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Menu_Ass.png; path = ArtAssets/Menu_Ass.png; sourceTree = "<group>"; };
+		AB49744117226EFA00403F8D /* play_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_bg.png; path = ArtAssets/play_bg.png; sourceTree = "<group>"; };
+		AB49744217226EFA00403F8D /* prompt_Ass.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = prompt_Ass.plist; path = ArtAssets/prompt_Ass.plist; sourceTree = "<group>"; };
+		AB49744317226EFA00403F8D /* prompt_Ass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prompt_Ass.png; path = ArtAssets/prompt_Ass.png; sourceTree = "<group>"; };
+		AB49744417226EFA00403F8D /* top_Bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = top_Bar.png; path = ArtAssets/top_Bar.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1905,25 +1897,26 @@
 		AB266AA01716940D007930EB /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				AB266AA117169425007930EB /* background.png */,
-				AB266AA217169425007930EB /* button_down.png */,
-				AB266AA317169425007930EB /* button_up.png */,
-				AB266AA417169425007930EB /* circle.plist */,
-				AB266AA517169425007930EB /* circle.png */,
-				AB266AA617169425007930EB /* Default.png */,
-				AB266AA717169425007930EB /* effect.plist */,
-				AB266AA817169425007930EB /* effect.png */,
-				AB266AA917169425007930EB /* Game_Ass.plist */,
-				AB266AAA17169425007930EB /* Game_Ass.png */,
-				AB266AAB17169425007930EB /* GameOver_Ass.plist */,
-				AB266AAC17169425007930EB /* GameOver_Ass.png */,
-				AB266AAD17169425007930EB /* kitemania.png */,
-				AB266AAE17169426007930EB /* lighting.plist */,
-				AB266AAF17169426007930EB /* lighting.png */,
-				AB266AB017169426007930EB /* Menu_Ass.plist */,
-				AB266AB117169426007930EB /* Menu_Ass.png */,
-				AB266AB217169426007930EB /* play_bg.png */,
-				AB266AB317169426007930EB /* scorepanel.png */,
+				AB49743117226EFA00403F8D /* background.png */,
+				AB49743217226EFA00403F8D /* circle.plist */,
+				AB49743317226EFA00403F8D /* circle.png */,
+				AB49743417226EFA00403F8D /* Default.png */,
+				AB49743517226EFA00403F8D /* effect.plist */,
+				AB49743617226EFA00403F8D /* effect.png */,
+				AB49743717226EFA00403F8D /* Game_Ass.plist */,
+				AB49743817226EFA00403F8D /* Game_Ass.png */,
+				AB49743917226EFA00403F8D /* GameOver_Ass.plist */,
+				AB49743A17226EFA00403F8D /* GameOver_Ass.png */,
+				AB49743B17226EFA00403F8D /* kite_wall.png */,
+				AB49743C17226EFA00403F8D /* kitemania.png */,
+				AB49743D17226EFA00403F8D /* lighting.plist */,
+				AB49743E17226EFA00403F8D /* lighting.png */,
+				AB49743F17226EFA00403F8D /* Menu_Ass.plist */,
+				AB49744017226EFA00403F8D /* Menu_Ass.png */,
+				AB49744117226EFA00403F8D /* play_bg.png */,
+				AB49744217226EFA00403F8D /* prompt_Ass.plist */,
+				AB49744317226EFA00403F8D /* prompt_Ass.png */,
+				AB49744417226EFA00403F8D /* top_Bar.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -1931,15 +1924,10 @@
 		AB266AC71716942A007930EB /* AlphaDict */ = {
 			isa = PBXGroup;
 			children = (
-				AB266AC817169436007930EB /* English_Alp.txt */,
 				AB266AC917169436007930EB /* English.txt */,
-				AB266ACA17169436007930EB /* French_Alp.txt */,
 				AB266ACB17169436007930EB /* French.txt */,
-				AB266ACC17169436007930EB /* German_Alp.txt */,
 				AB266ACD17169436007930EB /* German.txt */,
-				AB266ACE17169436007930EB /* Portuguese_Alp.txt */,
 				AB266ACF17169436007930EB /* Portuguese.txt */,
-				AB266AD017169436007930EB /* Spanish_Alp.txt */,
 				AB266AD117169436007930EB /* Spanish.txt */,
 			);
 			name = AlphaDict;
@@ -2061,34 +2049,10 @@
 				AB2669CD1716926B007930EB /* project.pbxproj in Resources */,
 				AB266A791716926D007930EB /* cocos2dx-ext.mkf in Resources */,
 				AB266A7B1716926D007930EB /* cocos2dx-ext_public.defines.txt in Resources */,
-				AB266AB417169426007930EB /* background.png in Resources */,
-				AB266AB517169426007930EB /* button_down.png in Resources */,
-				AB266AB617169426007930EB /* button_up.png in Resources */,
-				AB266AB717169426007930EB /* circle.plist in Resources */,
-				AB266AB817169426007930EB /* circle.png in Resources */,
-				AB266AB917169426007930EB /* Default.png in Resources */,
-				AB266ABA17169426007930EB /* effect.plist in Resources */,
-				AB266ABB17169426007930EB /* effect.png in Resources */,
-				AB266ABC17169426007930EB /* Game_Ass.plist in Resources */,
-				AB266ABD17169426007930EB /* Game_Ass.png in Resources */,
-				AB266ABE17169426007930EB /* GameOver_Ass.plist in Resources */,
-				AB266ABF17169426007930EB /* GameOver_Ass.png in Resources */,
-				AB266AC017169426007930EB /* kitemania.png in Resources */,
-				AB266AC117169426007930EB /* lighting.plist in Resources */,
-				AB266AC217169426007930EB /* lighting.png in Resources */,
-				AB266AC317169426007930EB /* Menu_Ass.plist in Resources */,
-				AB266AC417169426007930EB /* Menu_Ass.png in Resources */,
-				AB266AC517169426007930EB /* play_bg.png in Resources */,
-				AB266AC617169426007930EB /* scorepanel.png in Resources */,
-				AB266AD217169436007930EB /* English_Alp.txt in Resources */,
 				AB266AD317169436007930EB /* English.txt in Resources */,
-				AB266AD417169436007930EB /* French_Alp.txt in Resources */,
 				AB266AD517169436007930EB /* French.txt in Resources */,
-				AB266AD617169436007930EB /* German_Alp.txt in Resources */,
 				AB266AD717169436007930EB /* German.txt in Resources */,
-				AB266AD817169436007930EB /* Portuguese_Alp.txt in Resources */,
 				AB266AD917169436007930EB /* Portuguese.txt in Resources */,
-				AB266ADA17169436007930EB /* Spanish_Alp.txt in Resources */,
 				AB266ADB17169436007930EB /* Spanish.txt in Resources */,
 				AB266AFE17169446007930EB /* Segoe16_0.png in Resources */,
 				AB266AFF17169446007930EB /* Segoe16.fnt in Resources */,
@@ -2130,6 +2094,26 @@
 				AB266B3917169AC8007930EB /* HIT.m4a in Resources */,
 				AB266B3A17169AC8007930EB /* LETTERPICK.m4a in Resources */,
 				AB266B3B17169AC8007930EB /* zap.m4a in Resources */,
+				AB49744517226EFA00403F8D /* background.png in Resources */,
+				AB49744617226EFA00403F8D /* circle.plist in Resources */,
+				AB49744717226EFA00403F8D /* circle.png in Resources */,
+				AB49744817226EFA00403F8D /* Default.png in Resources */,
+				AB49744917226EFA00403F8D /* effect.plist in Resources */,
+				AB49744A17226EFA00403F8D /* effect.png in Resources */,
+				AB49744B17226EFA00403F8D /* Game_Ass.plist in Resources */,
+				AB49744C17226EFA00403F8D /* Game_Ass.png in Resources */,
+				AB49744D17226EFA00403F8D /* GameOver_Ass.plist in Resources */,
+				AB49744E17226EFA00403F8D /* GameOver_Ass.png in Resources */,
+				AB49744F17226EFA00403F8D /* kite_wall.png in Resources */,
+				AB49745017226EFA00403F8D /* kitemania.png in Resources */,
+				AB49745117226EFA00403F8D /* lighting.plist in Resources */,
+				AB49745217226EFA00403F8D /* lighting.png in Resources */,
+				AB49745317226EFA00403F8D /* Menu_Ass.plist in Resources */,
+				AB49745417226EFA00403F8D /* Menu_Ass.png in Resources */,
+				AB49745517226EFA00403F8D /* play_bg.png in Resources */,
+				AB49745617226EFA00403F8D /* prompt_Ass.plist in Resources */,
+				AB49745717226EFA00403F8D /* prompt_Ass.png in Resources */,
+				AB49745817226EFA00403F8D /* top_Bar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

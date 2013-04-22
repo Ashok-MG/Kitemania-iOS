@@ -46,8 +46,6 @@ class MainMenuScene : public CCLayerColor
 
 		CCSize screenSize;
 		CCLabelBMFont *mStateLbl, *sStateLbl, *lStateLbl;
-
-		int pLangId;
 };
 
 #endif // __Kitmania_MainMenuScene_h__

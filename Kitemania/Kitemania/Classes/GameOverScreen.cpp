@@ -110,9 +110,8 @@ void GameOverScreen::initScene(CCNode* sender)
         users = gSettings->topTenUsersTimer(); 
           
     int totalUsers=sizeof(users)/sizeof(users[0]);
-    CCLOG(" total users %d ",totalUsers);
-        
 	int count = 0;
+	
     //------Add 10 player score board
     for(;count<10;count++)
 	{

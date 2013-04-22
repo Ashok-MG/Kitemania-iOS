@@ -233,12 +233,9 @@ void MainMenuScene::addGameMenuMethod()
 //PLAY GAME MENU METHOD
 void MainMenuScene::playGameMenuMethod(cocos2d::CCObject* sender)
 {
-	if (GameSettings::sharedSetting()->getLanguageType() != pLangId)
-	{
-		GameSettings::sharedSetting()->setOldScore(0);
-		GameSettings::sharedSetting()->setScore(0);
-		GameSettings::sharedSetting()->setOldLife(4);
-	}
+	GameSettings::sharedSetting()->setOldScore(0);
+	GameSettings::sharedSetting()->setScore(0);
+	GameSettings::sharedSetting()->setOldLife(4);
 	CCDirector::sharedDirector()->pushScene(PlayScreen::scene());
 }
 

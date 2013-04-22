@@ -11,6 +11,8 @@
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "LoadingScreen.h"
+#include "GameSettings.h"
+#include "Resources.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -52,6 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->stopAnimation();
+	
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->pauseAllEffects();
 }
@@ -60,6 +63,10 @@ void AppDelegate::applicationDidEnterBackground()
 void AppDelegate::applicationWillEnterForeground()
 {
     CCDirector::sharedDirector()->startAnimation();
-    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+	
+	if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn || GameSettings::sharedSetting()->getMusic() == 0)
+	{
+		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+		SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+	}
 }
