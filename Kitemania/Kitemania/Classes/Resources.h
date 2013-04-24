@@ -84,13 +84,13 @@ enum
 #define YELLOW_LIVE						"kYellowLive.png"
 #define PINK_LIVE						"kPinkLive.png"
 #define HOT_BALLON						"Hot_Air_Balloon.png"
-#define SCORE_HEAD_BAR					"blue_bar.png"
-#define SCORE_DATA_BAR					"leaderboard_bar.png"
 
 //MESSAGE PROMPT ASSETS
 #define SCROE_PANEL						"score_panel.png"
 #define BTN_ON_UP						"ok_btn_up.png"
 #define BTN_ON_DOWN						"ok_btn_down.png"
+#define SCORE_HEAD_BAR					"blue_bar.png"
+#define SCORE_DATA_BAR					"leaderboard_bar.png"
 
 //SOUNDS
 #define SFX_BIRD_HIT					"HIT.m4a"

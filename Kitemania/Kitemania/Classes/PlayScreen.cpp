@@ -820,7 +820,6 @@ void PlayScreen::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
     
     o = abs((int)o);
     a = abs((int)a);
-	//	CCLOG("o %f a %f",o,a);
 	
 	double area = sqrt(o*o+a*a);
 	if (area < 0 && area > 1000 ) area = 0.1;
@@ -870,8 +869,6 @@ void PlayScreen::lostGameLife(CCNode* sender)
 void PlayScreen::clickOnSubmitBtn(cocos2d::CCObject* sender)
 {
 //	if (_colWord->count() != charCompMoved) return;
-
-	charCompMoved = 0;
 	
     if(strlen(wordChar) == 0 || mSbmtAnimatWat != 0) {}
     else if (strlen(wordChar) == 1) 
@@ -912,7 +909,7 @@ void PlayScreen::clickOnSubmitBtn(cocos2d::CCObject* sender)
 
 				if (m_GameLevel == kGameLevelBasic)
 				{
-					if ( gSettings->getScore() >= 20)
+					if ( gSettings->getScore() >= 200)
 					{
 						addObstacles(this);
 						addBonusPointsWord(this);
@@ -1034,11 +1031,13 @@ void PlayScreen::showCollectWordAnimation(CCNode* sender)
 
 void PlayScreen::showAnimatedScore(CCNode* sender)
 {
+	float bSizeW = ((CCSprite*)_colWord->lastObject())->boundingBox().size.width * 1.105;
+	
 	char score[10] = {0};
 	sprintf(score, "%d", m_score);
 	
     CCLabelBMFont *lbl = CCLabelBMFont::create(score, GlobalClass::getMessageFont().c_str());
-    lbl->setPosition(ccp(screenSize.width*0.5f, screenSize.width*0.174f));
+    lbl->setPosition( ccp(bSizeW*0.51f + (charCompMoved-1) * bSizeW, screenSize.width*0.174f));
     lbl->setColor( ccc3(255, 255, 255));
     this->addChild(lbl, 7);
     lbl->setScale(0.1);
@@ -1048,6 +1047,7 @@ void PlayScreen::showAnimatedScore(CCNode* sender)
 	
     _colWord->removeAllObjects();
     wordChar[0] = '\0';
+	charCompMoved = 0;
 }
 
 void PlayScreen::moveBubble(CCPoint source, CCPoint destination , CCNode* sender)
@@ -1093,6 +1093,7 @@ void PlayScreen::showMessage(std::string msg, bool status)
 		
 		_colWord->removeAllObjects();
 		wordChar[0] = '\0';
+		charCompMoved = 0;
 	}
 }
 

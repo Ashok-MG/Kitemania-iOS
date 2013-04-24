@@ -103,7 +103,7 @@ void HelpScreen::initScene(CCNode* sender)
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(BACKGROUND_IMAGE);
 
     //-------Add Kite wall
-	CCSprite *kiteWall = CCSprite::createWithSpriteFrameName(KITE_WALL);
+	CCSprite *kiteWall = CCSprite::create(KITE_WALL);
 	kiteWall->setScale(GlobalClass::getScaleByScreen());
 	kiteWall->setAnchorPoint(ccp(0.5, 0));
 	kiteWall->setPosition( ccp(screenSize.width*0.5, 0));
@@ -340,33 +340,24 @@ void HelpScreen::moveBallAnimation(CCNode* sender)
 
 void HelpScreen::moveBubble(CCPoint source, CCPoint destination , CCNode* sender)
 {
-	CCPoint convertedLocation = destination; //= CCDirector::sharedDirector()->convertToGL(destination);
-    
- 	if (convertedLocation.x<0) {
-        convertedLocation.x=0;
-    }
+	CCPoint convertedLocation = destination;
+ 	if (convertedLocation.x < 0) convertedLocation.x = 0;
     
     float o = convertedLocation.x - source.x;
 	float a = convertedLocation.y - source.y;
 	float at = (float) CC_RADIANS_TO_DEGREES( atanf( o/a) );
     
-	if( a < 0 ) 
+	if( a < 0 )
 	{
-		if(  o < 0 )
-			at = 180 + fabs(at);
-		else
-			at = 180 - fabs(at);	
+		if(o < 0)	at = 180 + fabs(at);
+		else		at = 180 - fabs(at);
 	}
     
-    o=abs((int)o);
-    a=abs((int)a);
+    o = abs((int)o);
+    a = abs((int)a);
     
     double area=sqrt(o*o+a*a);
-    
-    if (area>0 && area <1000 ) 
-		area=area;
-    else
-        area=.1;
+	if (area < 0 && area > 1000 ) area = 0.1;
    	
     ccBezierConfig bezier;
 	bezier.controlPoint_1 = ccp(source.x/2, source.y);
