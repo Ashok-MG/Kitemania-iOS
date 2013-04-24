@@ -93,6 +93,8 @@ class  PlayScreen : public CCLayerColor
 		virtual bool ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent);
 		virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
 		virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
+    
+        void resetFlicker(CCObject* pSender);
 
 		void pauseGame();
 		void resumeGame();

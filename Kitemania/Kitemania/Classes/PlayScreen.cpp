@@ -759,8 +759,9 @@ bool PlayScreen::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 
 void PlayScreen::ccTouchMoved(CCTouch* touch, CCEvent* event)
 {
-	if (isEnableFlicker && _colWord->count() != charCompMoved) return;
-	
+    if (!isEnableFlicker && _colWord->count() != charCompMoved) return;
+
+    
     CCPoint location = touch->getLocationInView();
     location =CCDirector::sharedDirector()->convertToGL(location);
     CCRect pointRect = CCRectMake(location.x, location.y, 1, 1);
@@ -777,7 +778,7 @@ void PlayScreen::ccTouchMoved(CCTouch* touch, CCEvent* event)
 			if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_WORK_FLICK);
 			
 			_colWord->removeObject(temSprite);
-			temSprite->runAction( CCSequence::create( CCMoveTo::create(0.1 , CCPointMake(temSprite->getPosition().x, temSprite->getPosition().y + 20)), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::destroySprites)), NULL));
+			temSprite->runAction( CCSequence::create( CCMoveTo::create(0.1 , CCPointMake(temSprite->getPosition().x, temSprite->getPosition().y + 20)), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::destroySprites)), CCCallFuncN::create(this,callfuncN_selector(PlayScreen::resetFlicker)), NULL));
 			
 			int count = _colWord->count();
 			float bSizeW = temSprite->boundingBox().size.width * 1.035f;
@@ -785,16 +786,21 @@ void PlayScreen::ccTouchMoved(CCTouch* touch, CCEvent* event)
             for (int j=i; j<count; j++)
 			{
                 wordChar[j] = wordChar[j+1];
-				temSprite = (CCSprite*)_colWord->objectAtIndex(j);;
-				temSprite->runAction( CCSequence::create( CCMoveTo::create(0.1 , CCPointMake(bSizeW*0.51f + (_colWord->count()-1) * bSizeW, temSprite->getPositionY())), NULL));
+				temSprite = (CCSprite*)_colWord->objectAtIndex(j);
+				temSprite->runAction( CCSequence::create( CCMoveTo::create(0.1 , ccp(temSprite->getPositionX() - bSizeW, temSprite->getPositionY())), NULL));
 			}
 
 			wordChar[count] = '\0';
 			charCompMoved = count;
-			isEnableFlicker = true;
+//			isEnableFlicker = true;
             break;
 		}
 	}
+}
+
+void PlayScreen::resetFlicker(CCObject* pSender)
+{
+    isEnableFlicker = true;
 }
 
 void PlayScreen::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
