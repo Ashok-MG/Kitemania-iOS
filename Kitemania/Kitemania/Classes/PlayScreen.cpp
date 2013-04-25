@@ -14,14 +14,21 @@
 #include "GameSettings.h"
 #include "Music.h"
 
-#define kMaxCloudMoveDuration 36.0f
-#define kMinCloudMoveDuration 24.0f
-#define kMaxBirdMoveDuration  10
-#define kMinBirdMoveDuration  4
-#define kBallMinMoveDuration 14
-#define kBallMaxMoveDuration 20
-#define kMaxAirHotMoveDuration 25
-#define kMinAirHotMoveDuration 15
+
+/*
+ Game Settings
+ */
+#define kMaxCloudMoveDuration       36.0f
+#define kMinCloudMoveDuration       24.0f
+#define kMaxBirdMoveDuration        10
+#define kMinBirdMoveDuration        4
+#define kBallMinMoveDuration        14
+#define kBallMaxMoveDuration        20
+#define kMaxAirHotMoveDuration      25
+#define kMinAirHotMoveDuration      15
+
+// max score for basic level
+#define BASIC_LVL_MAX_SCORE         200
 
 enum {
 	kTagScores = 30,
@@ -104,6 +111,13 @@ bool PlayScreen::init()
 	CCTextureCache::sharedTextureCache()->removeTextureForKey(IMAGE_PNG_EFFECT);
 	
 	this->setKeypadEnabled(true);
+    
+    // initialize render texture object
+    renderTexture = CCRenderTexture::create((int)this->getContentSize().width, (int)this->getContentSize().height);
+    renderTexture->setPosition( ccp(this->getContentSize().width * 0.5, this->getContentSize().height * 0.5));
+    renderTexture->setScale(GlobalClass::getScaleBySprite());
+    this->addChild(renderTexture, 0);
+    
 	initScene(this);
 
 	return true;
@@ -561,16 +575,14 @@ void PlayScreen::tick(float dt)
 		if (kite->getPosition().y > 0)
 		{
 			float decWidth = kite->boundingBox().size.width * 0.1f;
-			CCRect kiteRect = CCRect(kite->boundingBox().origin.x + decWidth, kite->boundingBox().origin.y + decWidth, kite->boundingBox().size.width - decWidth * 2, kite->boundingBox().size.height - decWidth * 2);
-			
-			//---Bubble collosion
+					
+			//---Bubble collision
 			for (int i=0; i<_bubbles->count(); i++)
 			{
                 CCSprite *bubble = (CCSprite*)_bubbles->objectAtIndex(i);
 				decWidth = bubble->boundingBox().size.width * 0.1f;
-				CCRect bubbleRect = CCRect(bubble->boundingBox().origin.x + decWidth, bubble->boundingBox().origin.y + decWidth, bubble->boundingBox().size.width - decWidth * 2, bubble->boundingBox().size.height - decWidth * 2);
 				
-                if (bubbleRect.intersectsRect(kiteRect))
+                if (checkPixelCollision(kite, bubble, true)) // check pixel collision from kite and bubble sprite
 				{
 					if (strlen(wordChar) < 8)
 					{
@@ -603,10 +615,9 @@ void PlayScreen::tick(float dt)
 				CCSprite *bubble = (CCSprite*)_pBubbles->objectAtIndex(i);
 			
 				decWidth = bubble->boundingBox().size.width * 0.1f;
-				CCRect bubbleRect = CCRect(bubble->boundingBox().origin.x + decWidth, bubble->boundingBox().origin.y + decWidth, bubble->boundingBox().size.width - decWidth * 2, bubble->boundingBox().size.height - decWidth * 2);
 			
-				if (bubbleRect.intersectsRect(kiteRect))
-				{
+                if (checkPixelCollision(kite, bubble, true)) // check pixel collision from kite and bubble sprite
+                {
 					//play bird-hit sound
 					if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_WORD_PICK);
 					kite->setTag(kTagPowerKite);
@@ -627,9 +638,8 @@ void PlayScreen::tick(float dt)
 				CCSprite *birds = (CCSprite*)_obstacles->objectAtIndex(i);
 				
 				decWidth = birds->boundingBox().size.width * 0.2f;
-				CCRect birdsRect = CCRect(birds->boundingBox().origin.x + decWidth, birds->boundingBox().origin.y + decWidth, birds->boundingBox().size.width - decWidth * 2, birds->boundingBox().size.height - decWidth * 2);
-				
-                if (birdsRect.intersectsRect(kiteRect))
+	
+                if (checkPixelCollision(kite, birds, true)) // check pixel collision from kite and obstacles sprite
 				{
 					//play bird-hit sound
 					if(GameSettings::sharedSetting()->getMusic() == kTagSoundOn) Music::sharedMusic()->playEffectSound(SFX_BIRD_HIT);
@@ -798,6 +808,106 @@ void PlayScreen::ccTouchMoved(CCTouch* touch, CCEvent* event)
 	}
 }
 
+/*
+ find pixel collision in two sprites. 
+ */
+bool PlayScreen::checkPixelCollision(CCSprite* spr1, CCSprite* spr2, bool pixelPerfect)
+{
+    bool isCollision = false;
+   
+    // Get intersection rect
+    CCRect intersection = getIntersectionRect(spr1->boundingBox(),  spr2->boundingBox());
+    
+    // Look for simple bounding box collision
+    if (intersection.size.width > 0 && intersection.size.height > 0)
+    {
+        // If we're not checking for pixel perfect collisions, return true
+        if (!pixelPerfect) {return true;}
+        
+        // Get num of pixels
+        unsigned int numPixels = intersection.size.width * intersection.size.height;
+        
+        // start render texture with color
+        renderTexture->beginWithClear(0, 0, 0, 0);
+        
+        // Render both sprites: first one in RED and second one in GREEN
+        glColorMask(1, 0, 0, 1);
+        spr1->visit();
+        glColorMask(0, 1, 0, 1);
+        spr2->visit();
+        
+        // reset mask color
+        glColorMask(1, 1, 1, 1);
+        
+        // Read pixels
+        ccColor4B *buffer = new ccColor4B[ numPixels];
+        memset(buffer,0, numPixels);
+
+        // Get color values of intersection area
+        glReadPixels(intersection.origin.x, intersection.origin.y, intersection.size.width, intersection.size.height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        
+        // end render texture
+        renderTexture->end();
+        
+        // Read buffer
+        unsigned int step = 1;
+        unsigned int i=0;
+        for(; i<numPixels; i+=step)
+        {
+            ccColor4B color = buffer[i]; // get color from buffer
+            
+            if (color.r > 0 && color.g > 0) // if find red and green are > then 0 means it have pixel collision
+            {
+                isCollision = true;
+                break;
+            }
+        }
+        
+//            CCLog("sRect w %d - h %d - isCollision %d  ", w, h, isCollision);
+    
+        // Free buffer memory
+        free(buffer);
+    }
+    return isCollision;
+}
+
+/*
+ get intersection rect from two rect
+ */
+CCRect PlayScreen::getIntersectionRect(CCRect rect1, CCRect rect2)
+{
+    unsigned int x;
+    unsigned int y;
+    int areaWidth;
+    int areaHeight;
+    
+    
+    if(rect1.origin.x > rect2.origin.x)
+    {
+        areaWidth =(int) rect2.size.width - (rect1.origin.x - rect2.origin.x) ;
+        x = rect1.origin.x;
+    }
+    else
+    {
+        areaWidth =(int) rect1.size.width - (rect2.origin.x - rect1.origin.x) ;
+        x = rect2.origin.x;
+    }
+    
+    if(rect1.origin.y > rect2.origin.y)
+    {
+        areaHeight =(int) rect2.size.height - (rect1.origin.y - rect2.origin.y) ;
+        y = rect1.origin.y;
+    }
+    else
+    {
+        areaHeight =(int) rect1.size.height - (rect2.origin.y - rect1.origin.y) ;
+        y = rect2.origin.y;
+    }
+    
+    return CCRect(x, y, areaWidth, areaHeight);
+}
+
+
 void PlayScreen::resetFlicker(CCObject* pSender)
 {
     isEnableFlicker = true;
@@ -915,7 +1025,7 @@ void PlayScreen::clickOnSubmitBtn(cocos2d::CCObject* sender)
 
 				if (m_GameLevel == kGameLevelBasic)
 				{
-					if ( gSettings->getScore() >= 200)
+					if ( gSettings->getScore() >= BASIC_LVL_MAX_SCORE )
 					{
 						addObstacles(this);
 						addBonusPointsWord(this);

@@ -29,6 +29,8 @@ typedef enum {
 class  PlayScreen : public CCLayerColor
 {
     private:
+        CCRenderTexture* renderTexture;
+    
 		CCSize screenSize;
 		kTagGameLevel m_GameLevel;
 		kTagGameState m_GameState;
@@ -94,6 +96,9 @@ class  PlayScreen : public CCLayerColor
 		virtual void ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent);
 		virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
     
+        bool checkPixelCollision(CCSprite* spr1, CCSprite* spr2, bool pixelPerfect);
+        CCRect getIntersectionRect(CCRect rect1, CCRect rect2);
+
         void resetFlicker(CCObject* pSender);
 
 		void pauseGame();
