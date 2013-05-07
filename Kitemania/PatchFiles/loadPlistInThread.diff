@@ -1,0 +1,123 @@
+diff --git a/Kitemania/Kitemania/libs/cocos2dx/CCDirector.cpp b/Kitemania/Kitemania/libs/cocos2dx/CCDirector.cpp
+index a4fd396..6642216 100644
+--- a/Kitemania/Kitemania/libs/cocos2dx/CCDirector.cpp
++++ b/Kitemania/Kitemania/libs/cocos2dx/CCDirector.cpp
+@@ -928,6 +928,11 @@ void CCDirector::setAccelerometer(CCAccelerometer* pAccelerometer)
+     }
+ }
+ 
++void CCDirector::startScheduleForLoadImage(CCObject* pSender)
++{
++    CCDirector::sharedDirector()->getScheduler()->scheduleSelector(schedule_selector(CCTexture2D::withData), pSender, 0 , 0, 0.1, false);
++}
++
+ CCAccelerometer* CCDirector::getAccelerometer()
+ {
+     return m_pAccelerometer;
+diff --git a/Kitemania/Kitemania/libs/cocos2dx/CCDirector.h b/Kitemania/Kitemania/libs/cocos2dx/CCDirector.h
+index 8e19e33..522b257 100644
+--- a/Kitemania/Kitemania/libs/cocos2dx/CCDirector.h
++++ b/Kitemania/Kitemania/libs/cocos2dx/CCDirector.h
+@@ -299,6 +299,11 @@ public:
+     */
+     void setContentScaleFactor(float scaleFactor);
+     float getContentScaleFactor(void);
++    
++    /*
++     used for load images in main thread
++     */
++    void startScheduleForLoadImage(CCObject* pSender);
+ 
+ public:
+     /** CCScheduler associated with this director
+diff --git a/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.cpp b/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.cpp
+index 3824f07..4e6efdd 100644
+--- a/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.cpp
++++ b/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.cpp
+@@ -400,7 +400,27 @@ bool CCTexture2D::initPremultipliedATextureWithImage(CCImage *image, unsigned in
+         }
+     }
+     
+-    initWithData(tempData, pixelFormat, width, height, imageSize);
++    /* returns non-zero if the current thread is the main thread */
++    if (pthread_main_np())
++    {
++        initWithData(tempData, pixelFormat, width, height, imageSize);
++    }
++    else
++    {
++        imgData.dataTempData = tempData;
++        imgData.dataPixelFormat = pixelFormat;
++        imgData.dataWidth = width;
++        imgData.dataHeight = height;
++        imgData.dataImageSize = imageSize;
++        CCDirector::sharedDirector()->startScheduleForLoadImage(this);
++        
++        imgData.isInitWithData = true;
++        while (imgData.isInitWithData)
++        {
++            sleep(1);
++        }
++    }
++    
+     
+     if (tempData != image->getData())
+     {
+@@ -411,6 +431,12 @@ bool CCTexture2D::initPremultipliedATextureWithImage(CCImage *image, unsigned in
+     return true;
+ }
+ 
++void CCTexture2D::withData(CCObject* pSender)
++{
++    initWithData(imgData.dataTempData, imgData.dataPixelFormat, imgData.dataWidth, imgData.dataHeight, imgData.dataImageSize);
++    imgData.isInitWithData = false;
++}
++
+ // implementation CCTexture2D (Text)
+ bool CCTexture2D::initWithString(const char *text, const char *fontName, float fontSize)
+ {
+diff --git a/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.h b/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.h
+index 7a7a379..d133b01 100644
+--- a/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.h
++++ b/Kitemania/Kitemania/libs/cocos2dx/textures/CCTexture2D.h
+@@ -94,6 +94,20 @@ typedef struct _ccTexParams {
+     GLuint    wrapT;
+ } ccTexParams;
+ 
++/*
++ user ImageLoadData struct for contain image data
++ */
++struct ImageLoadData
++{
++    bool                        isInitWithData;
++    
++    unsigned int                dataWidth;
++    unsigned int                dataHeight;
++    unsigned char*              dataTempData;
++    CCSize                      dataImageSize;
++    CCTexture2DPixelFormat      dataPixelFormat;
++};
++
+ //CLASS INTERFACES:
+ 
+ /** @brief CCTexture2D class.
+@@ -241,6 +255,9 @@ public:
+     
+     bool hasPremultipliedAlpha();
+     bool hasMipmaps();
++    
++    void withData(CCObject* pSender);
++
+ private:
+     bool initPremultipliedATextureWithImage(CCImage * image, unsigned int pixelsWide, unsigned int pixelsHigh);
+     
+@@ -271,6 +288,9 @@ private:
+ 
+     /** shader program used by drawAtPoint and drawInRect */
+     CC_PROPERTY(CCGLProgram*, m_pShaderProgram, ShaderProgram);
++    
++    /** used by load image in thread */
++    ImageLoadData imgData;
+ };
+ 
+ // end of textures group

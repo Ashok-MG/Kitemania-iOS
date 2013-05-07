@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9A5BF951738CA6900A3AFC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9A5BF941738CA6800A3AFC6 /* Default-568h@2x.png */; };
 		AB2667A117169260007930EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2667A017169260007930EB /* QuartzCore.framework */; };
 		AB2667A317169260007930EB /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2667A217169260007930EB /* OpenGLES.framework */; };
 		AB2667A517169260007930EB /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB2667A417169260007930EB /* OpenAL.framework */; };
@@ -294,6 +295,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A9A5BF941738CA6800A3AFC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		AB26679D17169260007930EB /* Kitemania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kitemania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB2667A017169260007930EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AB2667A217169260007930EB /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -868,6 +870,7 @@
 		AB26679417169260007930EB = {
 			isa = PBXGroup;
 			children = (
+				A9A5BF941738CA6800A3AFC6 /* Default-568h@2x.png */,
 				AB2667B017169260007930EB /* Kitemania */,
 				AB26679F17169260007930EB /* Frameworks */,
 				AB26679E17169260007930EB /* Products */,
@@ -2114,6 +2117,7 @@
 				AB49745617226EFA00403F8D /* prompt_Ass.plist in Resources */,
 				AB49745717226EFA00403F8D /* prompt_Ass.png in Resources */,
 				AB49745817226EFA00403F8D /* top_Bar.png in Resources */,
+				A9A5BF951738CA6900A3AFC6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
